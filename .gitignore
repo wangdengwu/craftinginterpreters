@@ -12,7 +12,7 @@ temp.lox
 
 # XCode user-specific stuff.
 xcuserdata/
-
+.DS_Store
 # Dart stuff.
 /tool/.dart_tool/
 /tool/.packages

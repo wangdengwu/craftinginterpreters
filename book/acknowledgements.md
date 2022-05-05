@@ -1,31 +1,15 @@
-When the first copy of "[Game Programming Patterns][gpp]" sold, I guess I had
-the right to call myself an author. But it took time to feel comfortable with
-that label. Thank you to everyone who bought copies of my first book, and to the
-publishers and translators who brought it to other languages. You gave me the
-confidence to believe I could tackle a project of this scope. Well, that, and
-massively underestimating what I was getting myself into, but that's on me.
+当"[游戏编程模式][gpp]"第一本书卖出去之后，我自认为我可以称自己为作家了。 但是需要岁月沉淀，才能名副其实。感谢购买了我第一本书的人，感谢出版商，感谢所有译者。你们给了我信心，使我相信我可以胜任此事。然而，也严重低估了此事的难度，但这是我的问题。
 
 [gpp]: https://gameprogrammingpatterns.com/
 
-A fear particular to technical writing is *getting stuff wrong*. Tests and
-static analysis only get you so far. Once the code and prose is in ink on paper,
-there's no fixing it. I am deeply grateful to the many people who filed issues
-and pull requests on the [open source repo][repo] for the book. Special thanks
-go to cm1776, who filed 145 tactfully worded issues pointing out hundreds of
-code errors, typos, and unclear sentences. The book is more accurate and
-readable because of you all.
+写技术类的书尤其担心的是*把东西搞错了*。测试和静态分析不能解决所有问题。一旦代码和文字落墨成书，
+就再也没有机会修改了。很多人为这本书指出了问题，向此[开源项目][repo]提交了合并请求，我深表感谢。
+特别感谢cm1776，其贡献了145个单词拼写错误，指出了上百个代码错误，排版问题，和语句不够通顺的问题。都是因为你，这本书才能如此言之有序，又引人入胜。
 
 [repo]: https://github.com/munificent/craftinginterpreters
 
-I'm grateful to my copy editor Kari Somerton who braved a heap of computer
-science jargon and an unfamilar workflow in order to fix my many grammar errors
-and stylistic inconsistencies.
+我非常感谢我的编辑Kari Somerton，即使面对一堆计算机科学术语和不熟悉的工作流程，依然修正了我很多语法错误和风格不一致问题。
 
-When the pandemic turned everyone's life upside down, a number of people reached
-out to tell me that my book provided a helpful distraction. This book that I
-spent six years writing forms a chapter in my own life's story and I'm grateful
-to the readers who contacted me and made that chapter more meaningful.
+病毒肆虐导致每个人的生活都乱七八糟，一些人告诉我说，通过阅读我的书，减轻了焦虑。我花了6年时间，不仅仅写了这本书，也书写了我自己的人生篇章，非常感谢走入我生活的读者，是你们使我的人生篇章更有意义。
 
-Finally, the deepest thanks go to my wife Megan and my daughters Lily and
-Gretchen. You patiently endured the time I had to sink into the book, and my
-stress while writing it. There's no one I'd rather be stuck at home with.
+最后，深深的感谢我的妻子Megan和我的女儿们，Lily和Gretchen。感谢你们的耐心陪伴，以及理解我写书时的压力。你们是我的唯一。
