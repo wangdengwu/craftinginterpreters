@@ -6,6 +6,7 @@ import 'source_file_parser.dart';
 import 'text.dart';
 
 import 'package:glob/glob.dart';
+import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
 
 const _tableOfContents = {

@@ -21,17 +21,20 @@ article.chapter {
     }
   }
 
-  h2 a, h3 a {
+  h2 a,
+  h3 a {
     color: #222;
     border-bottom: none;
   }
 
-  h2 a:hover, h3 a:hover {
+  h2 a:hover,
+  h3 a:hover {
     border-bottom: none;
     color: inherit;
   }
 
-  h2 a::before, h3 a::before {
+  h2 a::before,
+  h3 a::before {
     position: absolute;
     left: -$col;
     width: $col;
@@ -41,11 +44,13 @@ article.chapter {
     text-align: center;
   }
 
-  h2 a:hover::before, h3 a:hover::before {
+  h2 a:hover::before,
+  h3 a:hover::before {
     color: #ddd;
   }
 
-  .challenges, .design-note {
+  .challenges,
+  .design-note {
     border-radius: 3px;
     padding: 12px;
     margin: -2px -12px 26px -12px;
@@ -87,14 +92,15 @@ article.chapter {
     }
 
     // Chapter 23 has some blockquotes in the design note.
-    > blockquote {
+    >blockquote {
       p {
         margin: 0 24px;
         font: italic 16px/24px $nav;
         color: #444;
       }
 
-      &::before, &::after {
+      &::before,
+      &::after {
         content: none;
       }
     }
@@ -102,7 +108,9 @@ article.chapter {
     // Use the regular code colors in asides, and not the tinted versions used
     // inside the challenge or design notes boxes themselves.
     aside {
-      code, .codehilite {
+
+      code,
+      .codehilite {
         color: $warm-dark;
         background: $warm-light;
       }
@@ -122,7 +130,8 @@ article.chapter {
   .challenges {
     background: $lighter;
 
-    code, .codehilite {
+    code,
+    .codehilite {
       background: hsl(195, 30%, 92%);
     }
   }
@@ -130,7 +139,8 @@ article.chapter {
   .design-note {
     background: hsl(80, 30%, 96%);
 
-    code, .codehilite {
+    code,
+    .codehilite {
       background: hsl(80, 20%, 93%);
     }
   }
@@ -150,19 +160,20 @@ article.chapter {
       margin: 0;
     }
 
-    td + td {
+    td+td {
       padding-left: 12px;
     }
   }
 }
 
 // Tablets and mobile go single column.
-@media only screen and (max-width: $col * 20) {
+@media only screen and (max-width: calc($col * 20)) {
   article.chapter {
 
     // Now that the asides are inline, make them match the challenge/design-note
     // colors and font.
-    .challenges, .design-note {
+    .challenges,
+    .design-note {
       aside {
         font: normal 15px/24px $nav;
         padding-bottom: 4px;
@@ -171,7 +182,9 @@ article.chapter {
 
     .challenges {
       aside {
-        code, .codehilite {
+
+        code,
+        .codehilite {
           background: hsl(195, 30%, 92%);
         }
       }
@@ -179,7 +192,9 @@ article.chapter {
 
     .design-note {
       aside {
-        code, .codehilite {
+
+        code,
+        .codehilite {
           background: hsl(80, 20%, 93%);
         }
       }
@@ -191,9 +206,11 @@ article.chapter {
 // The cut-off sizes here are based on trying to get 72 columns of code to fit.
 @media only screen and (max-width: 630px) {
   article.chapter {
-    h2 a::before, h3 a::before {
-      left: -($col / 2);
-      width: $col / 2;
+
+    h2 a::before,
+    h3 a::before {
+      left: - calc($col / 2);
+      width: calc($col / 2);
     }
   }
 }
@@ -214,14 +231,16 @@ article.chapter {
       font-size: 20px;
     }
 
-    .challenges, .design-note {
+    .challenges,
+    .design-note {
       padding: 11px 11px 8px 11px;
       margin: 25px 0 0 0;
 
       font-size: 15px;
       line-height: 22px;
 
-      code, .codehilite {
+      code,
+      .codehilite {
         font-size: 14px;
       }
 

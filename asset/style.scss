@@ -33,7 +33,7 @@ a {
   border-bottom: solid 1px transparentize($light, 1.0);
 
   transition: color 0.2s ease,
-              border-color 0.4s ease;
+    border-color 0.4s ease;
 }
 
 a:hover {
@@ -46,7 +46,8 @@ nav {
   background: $dark;
   color: $gray-2;
 
-  a, h2 a {
+  a,
+  h2 a {
     color: $gray-4;
     text-decoration: none;
     border-bottom: none;
@@ -76,13 +77,15 @@ nav {
     color: $gray-4;
   }
 
-  h2 small, h3 small {
+  h2 small,
+  h3 small {
     float: right;
     font-size: 16px;
     color: $gray-2;
   }
 
-  ol, ul {
+  ol,
+  ul {
     margin: 6px 0 3px 0;
     padding: 6px 0 4px 24px;
     border-top: solid 1px $gray-1;
@@ -174,11 +177,12 @@ nav.floating {
     cursor: pointer;
 
     transition: padding 0.2s ease,
-                margin 0.2s ease,
-                color 0.2s ease;
+      margin 0.2s ease,
+      color 0.2s ease;
   }
 
-  #expand-nav, #expand-nav:hover {
+  #expand-nav,
+  #expand-nav:hover {
     border-bottom: none;
   }
 
@@ -196,7 +200,7 @@ nav.floating {
     // See: http://stackoverflow.com/a/8331169/9457
     max-height: 0;
     transition: margin 0.2s ease,
-                max-height 1.0s ease;
+      max-height 1.0s ease;
 
     .prev-next {
       padding-bottom: 6px;
@@ -210,7 +214,7 @@ nav.floating {
   }
 
   img {
-    padding: 110px $col/2 23px $col/2;
+    padding: 110px calc($col/2) 23px calc($col/2);
   }
 }
 
@@ -240,7 +244,8 @@ nav.narrow {
     height: 27px;
   }
 
-  .prev, .next {
+  .prev,
+  .next {
     font-size: 32px;
     position: absolute;
     top: 12px;
@@ -331,8 +336,8 @@ pre {
 }
 
 // If the chapter ends with code, don't overlap the challenges box.
-div.codehilite + div.challenges {
-  margin-top: $col / 2;
+div.codehilite+div.challenges {
+  margin-top: calc($col / 2);
 }
 
 article {
@@ -368,7 +373,8 @@ article {
     margin: 24px 0;
   }
 
-  ol, ul {
+  ol,
+  ul {
     margin: 24px 0;
     padding: 0 0 0 24px;
   }
@@ -429,7 +435,8 @@ aside {
   blockquote {
     margin: 20px 0;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       content: none;
     }
 
@@ -453,7 +460,8 @@ blockquote {
 
   margin: 29px 0 31px 0;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     position: absolute;
     top: -20px;
     font: italic 72px $serif;
@@ -474,7 +482,7 @@ blockquote {
     margin: 0 $col;
     font: italic 24px/36px $serif;
     color: $gray-3;
-  
+
     em {
       font-style: normal;
     }
@@ -507,7 +515,8 @@ footer {
   margin: 48px 0;
   padding-top: 48px;
 
-  a, a:hover {
+  a,
+  a:hover {
     border: none;
   }
 
@@ -539,7 +548,8 @@ footer {
   }
 }
 
-.source-file, .source-file-narrow {
+.source-file,
+.source-file-narrow {
   font: normal 11px/16px $mono;
   color: $warm-3;
 
@@ -576,16 +586,50 @@ footer {
 
 // Syntax highlighting.
 .codehilite {
-  pre { color: mix($warm-light, $warm-dark, 20%); }
+  pre {
+    color: mix($warm-light, $warm-dark, 20%);
+  }
 
-  .k { color: hsl(200, 100%,  45%); }               // Keyword.
-  .n { color: hsl( 20,  70%,  55%); }               // Number.
-  .s { color: hsl( 40,  70%,  45%); }               // String.
-  .e { color: hsl( 45,  80%,  55%); }               // String escape.
-  .c { color: mix($warm-light, $warm-dark, 50%); }  // Comment.
-  .a { color: hsl(270,  50%,  60%); }               // Preprocessor, annotation.
-  .i { color: hsl(200,  70%,  35%); }               // Identifier.
-  .t { color: hsl(185, 100%,  35%); }               // Type name.
+  .k {
+    color: hsl(200, 100%, 45%);
+  }
+
+  // Keyword.
+  .n {
+    color: hsl(20, 70%, 55%);
+  }
+
+  // Number.
+  .s {
+    color: hsl(40, 70%, 45%);
+  }
+
+  // String.
+  .e {
+    color: hsl(45, 80%, 55%);
+  }
+
+  // String escape.
+  .c {
+    color: mix($warm-light, $warm-dark, 50%);
+  }
+
+  // Comment.
+  .a {
+    color: hsl(270, 50%, 60%);
+  }
+
+  // Preprocessor, annotation.
+  .i {
+    color: hsl(200, 70%, 35%);
+  }
+
+  // Identifier.
+  .t {
+    color: hsl(185, 100%, 35%);
+  }
+
+  // Type name.
 
   .insert {
     margin: -2px -12px;
@@ -601,13 +645,11 @@ footer {
     border-left: solid 2px $warm-4;
     border-right: solid 2px $warm-4;
     // Hatched lines.
-    background: repeating-linear-gradient(
-      -45deg,
-      $warm-4,
-      $warm-4 1px,
-      rgba(0, 0, 0, 0.0) 1px,
-      rgba(0, 0, 0, 0.0) 6px
-    );
+    background: repeating-linear-gradient(-45deg,
+        $warm-4,
+        $warm-4 1px,
+        rgba(0, 0, 0, 0.0) 1px,
+        rgba(0, 0, 0, 0.0) 6px);
 
     span {
       color: $warm-3;
@@ -615,7 +657,8 @@ footer {
   }
 
   // Snippets of code before and after real code to show where to insert it.
-  .insert-before, .insert-after {
+  .insert-before,
+  .insert-after {
     color: $warm-3;
   }
 
@@ -632,8 +675,13 @@ footer {
 
 // On a not-entirely-large screen, don't show the fixed nav on the left.
 @media only screen and (max-width: 1344px) {
-  nav.wide { display: none; }
-  nav.floating { display: block; }
+  nav.wide {
+    display: none;
+  }
+
+  nav.floating {
+    display: block;
+  }
 
   body {
     margin: 0 24px;
@@ -730,11 +778,11 @@ footer {
 
   // If aside is right before a code block (when the asides are inline), make
   // sure they don't overlap.
-  aside + div.codehilite {
+  aside+div.codehilite {
     margin-top: 12px;
   }
 
-  div.codehilite + aside {
+  div.codehilite+aside {
     margin-top: 24px;
   }
 
@@ -751,13 +799,15 @@ footer {
 // The cut-off sizes here are based on trying to get 72 columns of code to fit.
 @media only screen and (max-width: 630px) {
   .page {
-    margin: 0 $col / 2;
+    margin: 0 calc($col / 2);
     width: inherit;
   }
 
   nav.narrow {
-    .prev, .next {
-      padding: 0 $col / 2;
+
+    .prev,
+    .next {
+      padding: 0 calc($col / 2);
     }
   }
 }
@@ -783,7 +833,8 @@ footer {
       height: 27px;
     }
 
-    .prev, .next {
+    .prev,
+    .next {
       top: 11px;
     }
   }
@@ -808,7 +859,8 @@ footer {
       margin: 22px 0;
     }
 
-    ol, ul {
+    ol,
+    ul {
       margin: 22px 0;
       padding: 0 0 0 22px;
     }
@@ -817,7 +869,8 @@ footer {
   blockquote {
     margin: 27px 0 28px 0;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       top: -17px;
       font-size: 52px;
     }

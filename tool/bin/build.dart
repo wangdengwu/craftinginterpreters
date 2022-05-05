@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:glob/glob.dart';
+import 'package:glob/list_local_fs.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as p;
 import 'package:sass/sass.dart' as sass;
@@ -200,8 +201,8 @@ DateTime _mostRecentlyModified(List<String> globs) {
   DateTime latest;
   for (var glob in globs) {
     for (var entry in Glob(glob).listSync()) {
-      if (entry is File) {
-        var modified = entry.lastModifiedSync();
+      if (entry is FileSystemEntity) {
+        var modified = entry.statSync().modified;
         if (latest == null || modified.isAfter(latest)) latest = modified;
       }
     }
