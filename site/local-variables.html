@@ -38,63 +38,63 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Local Variables<small>22</small></a></h3>
-
-<ul>
-    <li><a href="#representing-local-variables"><small>22.1</small> Representing Local Variables</a></li>
-    <li><a href="#block-statements"><small>22.2</small> Block Statements</a></li>
-    <li><a href="#declaring-local-variables"><small>22.3</small> Declaring Local Variables</a></li>
-    <li><a href="#using-locals"><small>22.4</small> Using Locals</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="global-variables.html" title="Global Variables" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Local Variables<small>22</small></a></h3>
+    
+    <ul>
+        <li><a href="#representing-local-variables"><small>22.1</small> Representing Local Variables</a></li>
+        <li><a href="#block-statements"><small>22.2</small> Block Statements</a></li>
+        <li><a href="#declaring-local-variables"><small>22.3</small> Declaring Local Variables</a></li>
+        <li><a href="#using-locals"><small>22.4</small> Using Locals</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="global-variables.html" title="Global Variables" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+        <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="global-variables.html" title="Global Variables" class="prev">←</a>
-<a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="global-variables.html" title="Global Variables" class="prev">←</a>
+  <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Local Variables<small>22</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Local Variables<small>22</small></a></h3>
+        
+        <ul>
+            <li><a href="#representing-local-variables"><small>22.1</small> Representing Local Variables</a></li>
+            <li><a href="#block-statements"><small>22.2</small> Block Statements</a></li>
+            <li><a href="#declaring-local-variables"><small>22.3</small> Declaring Local Variables</a></li>
+            <li><a href="#using-locals"><small>22.4</small> Using Locals</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="global-variables.html" title="Global Variables" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+            <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#representing-local-variables"><small>22.1</small> Representing Local Variables</a></li>
-    <li><a href="#block-statements"><small>22.2</small> Block Statements</a></li>
-    <li><a href="#declaring-local-variables"><small>22.3</small> Declaring Local Variables</a></li>
-    <li><a href="#using-locals"><small>22.4</small> Using Locals</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">22</div>
+    <h1>Local Variables</h1>
 
-<div class="prev-next">
-    <a href="global-variables.html" title="Global Variables" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">22</div>
-  <h1>Local Variables</h1>
-
-<blockquote>
+    <blockquote>
 <p>And as imagination bodies forth<br />
 The forms of things unknown, the poet&rsquo;s pen<br />
 Turns them to shapes and gives to airy nothing<br />
@@ -927,14 +927,16 @@ using your new keyword should cause a compile error.</p>
 </ol>
 </div>
 
-<footer>
-<a href="jumping-back-and-forth.html" class="next">
-  Next Chapter: &ldquo;Jumping Back and Forth&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="jumping-back-and-forth.html" class="next">
+        Next Chapter: &ldquo;Jumping Back and Forth&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

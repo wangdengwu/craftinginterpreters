@@ -38,65 +38,65 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Jumping Back and Forth<small>23</small></a></h3>
-
-<ul>
-    <li><a href="#if-statements"><small>23.1</small> If Statements</a></li>
-    <li><a href="#logical-operators"><small>23.2</small> Logical Operators</a></li>
-    <li><a href="#while-statements"><small>23.3</small> While Statements</a></li>
-    <li><a href="#for-statements"><small>23.4</small> For Statements</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>Considering Goto Harmful</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="local-variables.html" title="Local Variables" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="calls-and-functions.html" title="Calls and Functions" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Jumping Back and Forth<small>23</small></a></h3>
+    
+    <ul>
+        <li><a href="#if-statements"><small>23.1</small> If Statements</a></li>
+        <li><a href="#logical-operators"><small>23.2</small> Logical Operators</a></li>
+        <li><a href="#while-statements"><small>23.3</small> While Statements</a></li>
+        <li><a href="#for-statements"><small>23.4</small> For Statements</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+        <li class="end-part"><a href="#design-note"><small>note</small>Considering Goto Harmful</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="local-variables.html" title="Local Variables" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+        <a href="calls-and-functions.html" title="Calls and Functions" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="local-variables.html" title="Local Variables" class="prev">←</a>
-<a href="calls-and-functions.html" title="Calls and Functions" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="local-variables.html" title="Local Variables" class="prev">←</a>
+  <a href="calls-and-functions.html" title="Calls and Functions" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Jumping Back and Forth<small>23</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Jumping Back and Forth<small>23</small></a></h3>
+        
+        <ul>
+            <li><a href="#if-statements"><small>23.1</small> If Statements</a></li>
+            <li><a href="#logical-operators"><small>23.2</small> Logical Operators</a></li>
+            <li><a href="#while-statements"><small>23.3</small> While Statements</a></li>
+            <li><a href="#for-statements"><small>23.4</small> For Statements</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+            <li class="end-part"><a href="#design-note"><small>note</small>Considering Goto Harmful</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="local-variables.html" title="Local Variables" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+            <a href="calls-and-functions.html" title="Calls and Functions" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#if-statements"><small>23.1</small> If Statements</a></li>
-    <li><a href="#logical-operators"><small>23.2</small> Logical Operators</a></li>
-    <li><a href="#while-statements"><small>23.3</small> While Statements</a></li>
-    <li><a href="#for-statements"><small>23.4</small> For Statements</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>Considering Goto Harmful</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">23</div>
+    <h1>Jumping Back and Forth</h1>
 
-<div class="prev-next">
-    <a href="local-variables.html" title="Local Variables" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="calls-and-functions.html" title="Calls and Functions" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">23</div>
-  <h1>Jumping Back and Forth</h1>
-
-<blockquote>
+    <blockquote>
 <p>The order that our mind imagines is like a net, or like a ladder, built to
 attain something. But afterward you must throw the ladder away, because you
 discover that, even if it was useful, it was meaningless.</p>
@@ -1130,14 +1130,16 @@ understanding of the problems and benefits of goto. Instead, we just think it&rs
 for quality creative work.</p>
 </div>
 
-<footer>
-<a href="calls-and-functions.html" class="next">
-  Next Chapter: &ldquo;Calls and Functions&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="calls-and-functions.html" class="next">
+        Next Chapter: &ldquo;Calls and Functions&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

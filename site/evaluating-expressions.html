@@ -38,65 +38,65 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Evaluating Expressions<small>7</small></a></h3>
-
-<ul>
-    <li><a href="#representing-values"><small>7.1</small> Representing Values</a></li>
-    <li><a href="#evaluating-expressions"><small>7.2</small> Evaluating Expressions</a></li>
-    <li><a href="#runtime-errors"><small>7.3</small> Runtime Errors</a></li>
-    <li><a href="#hooking-up-the-interpreter"><small>7.4</small> Hooking Up the Interpreter</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>Static and Dynamic Typing</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="parsing-expressions.html" title="Parsing Expressions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="statements-and-state.html" title="Statements and State" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Evaluating Expressions<small>7</small></a></h3>
+    
+    <ul>
+        <li><a href="#representing-values"><small>7.1</small> Representing Values</a></li>
+        <li><a href="#evaluating-expressions"><small>7.2</small> Evaluating Expressions</a></li>
+        <li><a href="#runtime-errors"><small>7.3</small> Runtime Errors</a></li>
+        <li><a href="#hooking-up-the-interpreter"><small>7.4</small> Hooking Up the Interpreter</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+        <li class="end-part"><a href="#design-note"><small>note</small>Static and Dynamic Typing</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="parsing-expressions.html" title="Parsing Expressions" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+        <a href="statements-and-state.html" title="Statements and State" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="parsing-expressions.html" title="Parsing Expressions" class="prev">←</a>
-<a href="statements-and-state.html" title="Statements and State" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="parsing-expressions.html" title="Parsing Expressions" class="prev">←</a>
+  <a href="statements-and-state.html" title="Statements and State" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Evaluating Expressions<small>7</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Evaluating Expressions<small>7</small></a></h3>
+        
+        <ul>
+            <li><a href="#representing-values"><small>7.1</small> Representing Values</a></li>
+            <li><a href="#evaluating-expressions"><small>7.2</small> Evaluating Expressions</a></li>
+            <li><a href="#runtime-errors"><small>7.3</small> Runtime Errors</a></li>
+            <li><a href="#hooking-up-the-interpreter"><small>7.4</small> Hooking Up the Interpreter</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+            <li class="end-part"><a href="#design-note"><small>note</small>Static and Dynamic Typing</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="parsing-expressions.html" title="Parsing Expressions" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+            <a href="statements-and-state.html" title="Statements and State" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#representing-values"><small>7.1</small> Representing Values</a></li>
-    <li><a href="#evaluating-expressions"><small>7.2</small> Evaluating Expressions</a></li>
-    <li><a href="#runtime-errors"><small>7.3</small> Runtime Errors</a></li>
-    <li><a href="#hooking-up-the-interpreter"><small>7.4</small> Hooking Up the Interpreter</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>Static and Dynamic Typing</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">7</div>
+    <h1>Evaluating Expressions</h1>
 
-<div class="prev-next">
-    <a href="parsing-expressions.html" title="Parsing Expressions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="statements-and-state.html" title="Statements and State" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">7</div>
-  <h1>Evaluating Expressions</h1>
-
-<blockquote>
+    <blockquote>
 <p>You are my creator, but I am your master; Obey!</p>
 <p><cite>Mary Shelley, <em>Frankenstein</em></cite></p>
 </blockquote>
@@ -917,14 +917,16 @@ can <em>never</em> occur when their program is run. Defer too many type checks u
 runtime, and you erode that confidence.</p>
 </div>
 
-<footer>
-<a href="statements-and-state.html" class="next">
-  Next Chapter: &ldquo;Statements and State&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="statements-and-state.html" class="next">
+        Next Chapter: &ldquo;Statements and State&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

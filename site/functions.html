@@ -38,67 +38,67 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Functions<small>10</small></a></h3>
-
-<ul>
-    <li><a href="#function-calls"><small>10.1</small> Function Calls</a></li>
-    <li><a href="#native-functions"><small>10.2</small> Native Functions</a></li>
-    <li><a href="#function-declarations"><small>10.3</small> Function Declarations</a></li>
-    <li><a href="#function-objects"><small>10.4</small> Function Objects</a></li>
-    <li><a href="#return-statements"><small>10.5</small> Return Statements</a></li>
-    <li><a href="#local-functions-and-closures"><small>10.6</small> Local Functions and Closures</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="control-flow.html" title="Control Flow" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="resolving-and-binding.html" title="Resolving and Binding" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Functions<small>10</small></a></h3>
+    
+    <ul>
+        <li><a href="#function-calls"><small>10.1</small> Function Calls</a></li>
+        <li><a href="#native-functions"><small>10.2</small> Native Functions</a></li>
+        <li><a href="#function-declarations"><small>10.3</small> Function Declarations</a></li>
+        <li><a href="#function-objects"><small>10.4</small> Function Objects</a></li>
+        <li><a href="#return-statements"><small>10.5</small> Return Statements</a></li>
+        <li><a href="#local-functions-and-closures"><small>10.6</small> Local Functions and Closures</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="control-flow.html" title="Control Flow" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+        <a href="resolving-and-binding.html" title="Resolving and Binding" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="control-flow.html" title="Control Flow" class="prev">←</a>
-<a href="resolving-and-binding.html" title="Resolving and Binding" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="control-flow.html" title="Control Flow" class="prev">←</a>
+  <a href="resolving-and-binding.html" title="Resolving and Binding" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Functions<small>10</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Functions<small>10</small></a></h3>
+        
+        <ul>
+            <li><a href="#function-calls"><small>10.1</small> Function Calls</a></li>
+            <li><a href="#native-functions"><small>10.2</small> Native Functions</a></li>
+            <li><a href="#function-declarations"><small>10.3</small> Function Declarations</a></li>
+            <li><a href="#function-objects"><small>10.4</small> Function Objects</a></li>
+            <li><a href="#return-statements"><small>10.5</small> Return Statements</a></li>
+            <li><a href="#local-functions-and-closures"><small>10.6</small> Local Functions and Closures</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="control-flow.html" title="Control Flow" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+            <a href="resolving-and-binding.html" title="Resolving and Binding" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#function-calls"><small>10.1</small> Function Calls</a></li>
-    <li><a href="#native-functions"><small>10.2</small> Native Functions</a></li>
-    <li><a href="#function-declarations"><small>10.3</small> Function Declarations</a></li>
-    <li><a href="#function-objects"><small>10.4</small> Function Objects</a></li>
-    <li><a href="#return-statements"><small>10.5</small> Return Statements</a></li>
-    <li><a href="#local-functions-and-closures"><small>10.6</small> Local Functions and Closures</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">10</div>
+    <h1>Functions</h1>
 
-<div class="prev-next">
-    <a href="control-flow.html" title="Control Flow" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="resolving-and-binding.html" title="Resolving and Binding" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">10</div>
-  <h1>Functions</h1>
-
-<blockquote>
+    <blockquote>
 <p>And that is also the way the human mind works<span class="em">&mdash;</span>by the compounding of old
 ideas into new structures that become new ideas that can themselves be used in
 compounds, and round and round endlessly, growing ever more remote from the
@@ -1226,14 +1226,16 @@ languages you are familiar with? What do you think a language <em>should</em> do
 </ol>
 </div>
 
-<footer>
-<a href="resolving-and-binding.html" class="next">
-  Next Chapter: &ldquo;Resolving and Binding&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="resolving-and-binding.html" class="next">
+        Next Chapter: &ldquo;Resolving and Binding&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

@@ -38,71 +38,71 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Compiling Expressions<small>17</small></a></h3>
-
-<ul>
-    <li><a href="#single-pass-compilation"><small>17.1</small> Single-Pass Compilation</a></li>
-    <li><a href="#parsing-tokens"><small>17.2</small> Parsing Tokens</a></li>
-    <li><a href="#emitting-bytecode"><small>17.3</small> Emitting Bytecode</a></li>
-    <li><a href="#parsing-prefix-expressions"><small>17.4</small> Parsing Prefix Expressions</a></li>
-    <li><a href="#parsing-infix-expressions"><small>17.5</small> Parsing Infix Expressions</a></li>
-    <li><a href="#a-pratt-parser"><small>17.6</small> A Pratt Parser</a></li>
-    <li><a href="#dumping-chunks"><small>17.7</small> Dumping Chunks</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>It&#x27;s Just Parsing</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="scanning-on-demand.html" title="Scanning on Demand" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="types-of-values.html" title="Types of Values" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Compiling Expressions<small>17</small></a></h3>
+    
+    <ul>
+        <li><a href="#single-pass-compilation"><small>17.1</small> Single-Pass Compilation</a></li>
+        <li><a href="#parsing-tokens"><small>17.2</small> Parsing Tokens</a></li>
+        <li><a href="#emitting-bytecode"><small>17.3</small> Emitting Bytecode</a></li>
+        <li><a href="#parsing-prefix-expressions"><small>17.4</small> Parsing Prefix Expressions</a></li>
+        <li><a href="#parsing-infix-expressions"><small>17.5</small> Parsing Infix Expressions</a></li>
+        <li><a href="#a-pratt-parser"><small>17.6</small> A Pratt Parser</a></li>
+        <li><a href="#dumping-chunks"><small>17.7</small> Dumping Chunks</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+        <li class="end-part"><a href="#design-note"><small>note</small>It&#x27;s Just Parsing</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="scanning-on-demand.html" title="Scanning on Demand" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+        <a href="types-of-values.html" title="Types of Values" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="scanning-on-demand.html" title="Scanning on Demand" class="prev">←</a>
-<a href="types-of-values.html" title="Types of Values" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="scanning-on-demand.html" title="Scanning on Demand" class="prev">←</a>
+  <a href="types-of-values.html" title="Types of Values" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Compiling Expressions<small>17</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Compiling Expressions<small>17</small></a></h3>
+        
+        <ul>
+            <li><a href="#single-pass-compilation"><small>17.1</small> Single-Pass Compilation</a></li>
+            <li><a href="#parsing-tokens"><small>17.2</small> Parsing Tokens</a></li>
+            <li><a href="#emitting-bytecode"><small>17.3</small> Emitting Bytecode</a></li>
+            <li><a href="#parsing-prefix-expressions"><small>17.4</small> Parsing Prefix Expressions</a></li>
+            <li><a href="#parsing-infix-expressions"><small>17.5</small> Parsing Infix Expressions</a></li>
+            <li><a href="#a-pratt-parser"><small>17.6</small> A Pratt Parser</a></li>
+            <li><a href="#dumping-chunks"><small>17.7</small> Dumping Chunks</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+            <li class="end-part"><a href="#design-note"><small>note</small>It&#x27;s Just Parsing</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="scanning-on-demand.html" title="Scanning on Demand" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+            <a href="types-of-values.html" title="Types of Values" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#single-pass-compilation"><small>17.1</small> Single-Pass Compilation</a></li>
-    <li><a href="#parsing-tokens"><small>17.2</small> Parsing Tokens</a></li>
-    <li><a href="#emitting-bytecode"><small>17.3</small> Emitting Bytecode</a></li>
-    <li><a href="#parsing-prefix-expressions"><small>17.4</small> Parsing Prefix Expressions</a></li>
-    <li><a href="#parsing-infix-expressions"><small>17.5</small> Parsing Infix Expressions</a></li>
-    <li><a href="#a-pratt-parser"><small>17.6</small> A Pratt Parser</a></li>
-    <li><a href="#dumping-chunks"><small>17.7</small> Dumping Chunks</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-    <li class="end-part"><a href="#design-note"><small>note</small>It&#x27;s Just Parsing</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">17</div>
+    <h1>Compiling Expressions</h1>
 
-<div class="prev-next">
-    <a href="scanning-on-demand.html" title="Scanning on Demand" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="types-of-values.html" title="Types of Values" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">17</div>
-  <h1>Compiling Expressions</h1>
-
-<blockquote>
+    <blockquote>
 <p>In the middle of the journey of our life I found myself within a dark woods
 where the straight way was lost.</p>
 <p><cite>Dante Alighieri, <em>Inferno</em></cite></p>
@@ -1321,14 +1321,16 @@ handling and reporting is more valuable to users than almost anything else you
 can put time into in the front end.</p>
 </div>
 
-<footer>
-<a href="types-of-values.html" class="next">
-  Next Chapter: &ldquo;Types of Values&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="types-of-values.html" class="next">
+        Next Chapter: &ldquo;Types of Values&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

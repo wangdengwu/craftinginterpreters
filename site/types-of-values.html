@@ -38,63 +38,63 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Types of Values<small>18</small></a></h3>
-
-<ul>
-    <li><a href="#tagged-unions"><small>18.1</small> Tagged Unions</a></li>
-    <li><a href="#lox-values-and-c-values"><small>18.2</small> Lox Values and C Values</a></li>
-    <li><a href="#dynamically-typed-numbers"><small>18.3</small> Dynamically Typed Numbers</a></li>
-    <li><a href="#two-new-types"><small>18.4</small> Two New Types</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="compiling-expressions.html" title="Compiling Expressions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="strings.html" title="Strings" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Types of Values<small>18</small></a></h3>
+    
+    <ul>
+        <li><a href="#tagged-unions"><small>18.1</small> Tagged Unions</a></li>
+        <li><a href="#lox-values-and-c-values"><small>18.2</small> Lox Values and C Values</a></li>
+        <li><a href="#dynamically-typed-numbers"><small>18.3</small> Dynamically Typed Numbers</a></li>
+        <li><a href="#two-new-types"><small>18.4</small> Two New Types</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="compiling-expressions.html" title="Compiling Expressions" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+        <a href="strings.html" title="Strings" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="compiling-expressions.html" title="Compiling Expressions" class="prev">←</a>
-<a href="strings.html" title="Strings" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="compiling-expressions.html" title="Compiling Expressions" class="prev">←</a>
+  <a href="strings.html" title="Strings" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Types of Values<small>18</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Types of Values<small>18</small></a></h3>
+        
+        <ul>
+            <li><a href="#tagged-unions"><small>18.1</small> Tagged Unions</a></li>
+            <li><a href="#lox-values-and-c-values"><small>18.2</small> Lox Values and C Values</a></li>
+            <li><a href="#dynamically-typed-numbers"><small>18.3</small> Dynamically Typed Numbers</a></li>
+            <li><a href="#two-new-types"><small>18.4</small> Two New Types</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="compiling-expressions.html" title="Compiling Expressions" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+            <a href="strings.html" title="Strings" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#tagged-unions"><small>18.1</small> Tagged Unions</a></li>
-    <li><a href="#lox-values-and-c-values"><small>18.2</small> Lox Values and C Values</a></li>
-    <li><a href="#dynamically-typed-numbers"><small>18.3</small> Dynamically Typed Numbers</a></li>
-    <li><a href="#two-new-types"><small>18.4</small> Two New Types</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">18</div>
+    <h1>Types of Values</h1>
 
-<div class="prev-next">
-    <a href="compiling-expressions.html" title="Compiling Expressions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="strings.html" title="Strings" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">18</div>
-  <h1>Types of Values</h1>
-
-<blockquote>
+    <blockquote>
 <p>When you are a Bear of Very Little Brain, and you Think of Things, you find
 sometimes that a Thing which seemed very Thingish inside you is quite
 different when it gets out into the open and has other people looking at it.</p>
@@ -956,14 +956,16 @@ support for in this chapter?</p>
 </ol>
 </div>
 
-<footer>
-<a href="strings.html" class="next">
-  Next Chapter: &ldquo;Strings&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="strings.html" class="next">
+        Next Chapter: &ldquo;Strings&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

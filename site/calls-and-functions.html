@@ -38,69 +38,69 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Calls and Functions<small>24</small></a></h3>
-
-<ul>
-    <li><a href="#function-objects"><small>24.1</small> Function Objects</a></li>
-    <li><a href="#compiling-to-function-objects"><small>24.2</small> Compiling to Function Objects</a></li>
-    <li><a href="#call-frames"><small>24.3</small> Call Frames</a></li>
-    <li><a href="#function-declarations"><small>24.4</small> Function Declarations</a></li>
-    <li><a href="#function-calls"><small>24.5</small> Function Calls</a></li>
-    <li><a href="#return-statements"><small>24.6</small> Return Statements</a></li>
-    <li><a href="#native-functions"><small>24.7</small> Native Functions</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="closures.html" title="Closures" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Calls and Functions<small>24</small></a></h3>
+    
+    <ul>
+        <li><a href="#function-objects"><small>24.1</small> Function Objects</a></li>
+        <li><a href="#compiling-to-function-objects"><small>24.2</small> Compiling to Function Objects</a></li>
+        <li><a href="#call-frames"><small>24.3</small> Call Frames</a></li>
+        <li><a href="#function-declarations"><small>24.4</small> Function Declarations</a></li>
+        <li><a href="#function-calls"><small>24.5</small> Function Calls</a></li>
+        <li><a href="#return-statements"><small>24.6</small> Return Statements</a></li>
+        <li><a href="#native-functions"><small>24.7</small> Native Functions</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+        <a href="closures.html" title="Closures" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="prev">←</a>
-<a href="closures.html" title="Closures" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="prev">←</a>
+  <a href="closures.html" title="Closures" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Calls and Functions<small>24</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Calls and Functions<small>24</small></a></h3>
+        
+        <ul>
+            <li><a href="#function-objects"><small>24.1</small> Function Objects</a></li>
+            <li><a href="#compiling-to-function-objects"><small>24.2</small> Compiling to Function Objects</a></li>
+            <li><a href="#call-frames"><small>24.3</small> Call Frames</a></li>
+            <li><a href="#function-declarations"><small>24.4</small> Function Declarations</a></li>
+            <li><a href="#function-calls"><small>24.5</small> Function Calls</a></li>
+            <li><a href="#return-statements"><small>24.6</small> Return Statements</a></li>
+            <li><a href="#native-functions"><small>24.7</small> Native Functions</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
+            <a href="closures.html" title="Closures" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#function-objects"><small>24.1</small> Function Objects</a></li>
-    <li><a href="#compiling-to-function-objects"><small>24.2</small> Compiling to Function Objects</a></li>
-    <li><a href="#call-frames"><small>24.3</small> Call Frames</a></li>
-    <li><a href="#function-declarations"><small>24.4</small> Function Declarations</a></li>
-    <li><a href="#function-calls"><small>24.5</small> Function Calls</a></li>
-    <li><a href="#return-statements"><small>24.6</small> Return Statements</a></li>
-    <li><a href="#native-functions"><small>24.7</small> Native Functions</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">24</div>
+    <h1>Calls and Functions</h1>
 
-<div class="prev-next">
-    <a href="jumping-back-and-forth.html" title="Jumping Back and Forth" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-bytecode-virtual-machine.html" title="A Bytecode Virtual Machine">&uarr;&nbsp;Up</a>
-    <a href="closures.html" title="Closures" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">24</div>
-  <h1>Calls and Functions</h1>
-
-<blockquote>
+    <blockquote>
 <p>Any problem in computer science can be solved with another level of
 indirection. Except for the problem of too many layers of indirection.</p>
 <p><cite>David Wheeler</cite></p>
@@ -1926,14 +1926,16 @@ language and how practical it is?</p>
 </ol>
 </div>
 
-<footer>
-<a href="closures.html" class="next">
-  Next Chapter: &ldquo;Closures&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="closures.html" class="next">
+        Next Chapter: &ldquo;Closures&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>

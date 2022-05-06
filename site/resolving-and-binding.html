@@ -38,65 +38,65 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
   <div class="contents">
-<h3><a href="#top">Resolving and Binding<small>11</small></a></h3>
-
-<ul>
-    <li><a href="#static-scope"><small>11.1</small> Static Scope</a></li>
-    <li><a href="#semantic-analysis"><small>11.2</small> Semantic Analysis</a></li>
-    <li><a href="#a-resolver-class"><small>11.3</small> A Resolver Class</a></li>
-    <li><a href="#interpreting-resolved-variables"><small>11.4</small> Interpreting Resolved Variables</a></li>
-    <li><a href="#resolution-errors"><small>11.5</small> Resolution Errors</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
-
-
-<div class="prev-next">
-    <a href="functions.html" title="Functions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="classes.html" title="Classes" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
+        <h3><a href="#top">Resolving and Binding<small>11</small></a></h3>
+    
+    <ul>
+        <li><a href="#static-scope"><small>11.1</small> Static Scope</a></li>
+        <li><a href="#semantic-analysis"><small>11.2</small> Semantic Analysis</a></li>
+        <li><a href="#a-resolver-class"><small>11.3</small> A Resolver Class</a></li>
+        <li><a href="#interpreting-resolved-variables"><small>11.4</small> Interpreting Resolved Variables</a></li>
+        <li><a href="#resolution-errors"><small>11.5</small> Resolution Errors</a></li>
+        <li class="divider"></li>
+        <li class="end-part"><a href="#challenges">Challenges</a></li>
+    </ul>
+    
+    
+        <div class="prev-next">
+        <a href="functions.html" title="Functions" class="left">&larr;&nbsp;Previous</a>
+        <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+        <a href="classes.html" title="Classes" class="right">Next&nbsp;&rarr;</a>
+    </div> </div>
 </nav>
 
 <nav class="narrow">
-<a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-<a href="functions.html" title="Functions" class="prev">←</a>
-<a href="classes.html" title="Classes" class="next">→</a>
+  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+  <a href="functions.html" title="Functions" class="prev">←</a>
+  <a href="classes.html" title="Classes" class="next">→</a>
 </nav>
 
 <div class="page">
-<div class="nav-wrapper">
-<nav class="floating">
-  <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
-  <div class="expandable">
-<h3><a href="#top">Resolving and Binding<small>11</small></a></h3>
+  <div class="nav-wrapper">
+    <nav class="floating">
+      <a href="/"><img src="image/logotype.png" title="Crafting Interpreters"></a>
+      <div class="expandable">
+        <h3><a href="#top">Resolving and Binding<small>11</small></a></h3>
+        
+        <ul>
+            <li><a href="#static-scope"><small>11.1</small> Static Scope</a></li>
+            <li><a href="#semantic-analysis"><small>11.2</small> Semantic Analysis</a></li>
+            <li><a href="#a-resolver-class"><small>11.3</small> A Resolver Class</a></li>
+            <li><a href="#interpreting-resolved-variables"><small>11.4</small> Interpreting Resolved Variables</a></li>
+            <li><a href="#resolution-errors"><small>11.5</small> Resolution Errors</a></li>
+            <li class="divider"></li>
+            <li class="end-part"><a href="#challenges">Challenges</a></li>
+        </ul>
+        
+        
+                <div class="prev-next">
+            <a href="functions.html" title="Functions" class="left">&larr;&nbsp;Previous</a>
+            <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
+            <a href="classes.html" title="Classes" class="right">Next&nbsp;&rarr;</a>
+        </div>      </div>
+      <a id="expand-nav">≡</a>
+    </nav>
+  </div>
 
-<ul>
-    <li><a href="#static-scope"><small>11.1</small> Static Scope</a></li>
-    <li><a href="#semantic-analysis"><small>11.2</small> Semantic Analysis</a></li>
-    <li><a href="#a-resolver-class"><small>11.3</small> A Resolver Class</a></li>
-    <li><a href="#interpreting-resolved-variables"><small>11.4</small> Interpreting Resolved Variables</a></li>
-    <li><a href="#resolution-errors"><small>11.5</small> Resolution Errors</a></li>
-    <li class="divider"></li>
-    <li class="end-part"><a href="#challenges">Challenges</a></li>
-</ul>
+  <article class="chapter">
 
+    <div class="number">11</div>
+    <h1>Resolving and Binding</h1>
 
-<div class="prev-next">
-    <a href="functions.html" title="Functions" class="left">&larr;&nbsp;Previous</a>
-    <a href="a-tree-walk-interpreter.html" title="A Tree-Walk Interpreter">&uarr;&nbsp;Up</a>
-    <a href="classes.html" title="Classes" class="right">Next&nbsp;&rarr;</a>
-</div>  </div>
-  <a id="expand-nav">≡</a>
-</nav>
-</div>
-
-<article class="chapter">
-
-  <div class="number">11</div>
-  <h1>Resolving and Binding</h1>
-
-<blockquote>
+    <blockquote>
 <p>Once in a while you find yourself in an odd situation. You get into it by
 degrees and in the most natural way but, when you are right in the midst of
 it, you are suddenly astonished and ask yourself how in the world it all came
@@ -1288,14 +1288,16 @@ use that to quickly access a variable by its index instead of using a map.</p>
 </ol>
 </div>
 
-<footer>
-<a href="classes.html" class="next">
-  Next Chapter: &ldquo;Classes&rdquo; &rarr;
-</a>
-Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy; 2015&hairsp;&ndash;&hairsp;2021</a>
-</footer>
-</article>
+    <footer>
+      <a href="classes.html" class="next">
+        Next Chapter: &ldquo;Classes&rdquo; &rarr;
+      </a>
+      Handcrafted by Robert Nystrom&ensp;&mdash;&ensp;<a
+        href="https://github.com/munificent/craftinginterpreters/blob/master/LICENSE" target="_blank">&copy;
+        2015&hairsp;&ndash;&hairsp;2022</a>
+    </footer>
+  </article>
 
-</div>
-</body>
-</html>
+  </div>
+  </body>
+  </html>
