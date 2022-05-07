@@ -32,9 +32,9 @@ class Mustache {
     var nextPage = book.adjacentPage(page, 1);
     String nextType;
     if (nextPage != null && nextPage.isChapter) {
-      nextType = "Chapter";
+      nextType = "章";
     } else if (nextPage != null && nextPage.isPart) {
-      nextType = "Part";
+      nextType = "篇";
     }
 
     List<Map<String, dynamic>> chapters;
@@ -51,7 +51,7 @@ class Mustache {
       "is_chapter": part != null,
       "is_part": part == null && page.title != null && !isFrontmatter,
       "is_frontmatter": isFrontmatter,
-      "title": page.title,
+      "title": page.i18nTitle,
       "part": part,
       "body": body,
       "sections": _makeSections(page),
@@ -65,11 +65,11 @@ class Mustache {
       "number": page.numberString,
       // Previous page.
       "has_prev": previousPage != null,
-      "prev": previousPage?.title,
+      "prev": previousPage?.i18nTitle,
       "prev_file": previousPage?.fileName,
       // Next page.
       "has_next": nextPage != null,
-      "next": nextPage?.title,
+      "next": nextPage?.i18nTitle,
       "next_file": nextPage?.fileName,
       "next_type": nextType,
       "has_up": up != null,
@@ -87,7 +87,7 @@ class Mustache {
   Map<String, dynamic> _makePartData(Book book, int partIndex) {
     var partPage = book.parts[partIndex];
     return <String, dynamic>{
-      "title": partPage.title,
+      "title": partPage.i18nTitle,
       "number": partPage.numberString,
       "file": partPage.fileName,
       "chapters": _makeChapterList(partPage)
@@ -98,7 +98,7 @@ class Mustache {
     return [
       for (var chapter in part.chapters)
         <String, dynamic>{
-          "title": chapter.title,
+          "title": chapter.i18nTitle,
           "number": chapter.numberString,
           "file": chapter.fileName,
           "design_note": chapter.designNote?.replaceAll("'", "&rsquo;"),

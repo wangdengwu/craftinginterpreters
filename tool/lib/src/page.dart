@@ -1,4 +1,5 @@
 import 'package:path/path.dart' as p;
+import 'package:tool/src/book.dart';
 
 import 'code_tag.dart';
 import 'page_parser.dart';
@@ -61,6 +62,13 @@ class Page {
     if (word == "a" || word == "the") word = words[1].toLowerCase();
 
     return "chap${number}_$word";
+  }
+
+  String get i18nTitle {
+    if (contentsCN[title] == null) {
+      return title;
+    }
+    return contentsCN[title];
   }
 
   List<String> get lines => _ensureFile().lines;

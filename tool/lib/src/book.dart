@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'code_tag.dart';
 import 'location.dart';
 import 'page.dart';
@@ -8,6 +10,15 @@ import 'text.dart';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
+
+const contentsCN = {
+  'Crafting Interpreters': '自己动手写解释器',
+  'Dedication': '致词',
+  'Acknowledgements': '鸣谢',
+  'Table of Contents': '目录',
+  'Welcome': '欢迎',
+  'Introduction': '概览'
+};
 
 const _tableOfContents = {
   '': [
