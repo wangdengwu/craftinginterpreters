@@ -20,12 +20,14 @@ class Mustache {
 
   String render(Book book, Page page, String body, {String template}) {
     var part = page.part?.title;
-
+    var upTitle = "目录";
     var up = "Table of Contents";
     if (part != null) {
       up = part;
+      upTitle = page.part?.i18nTitle;
     } else if (page.title == "Table of Contents") {
       up = "Crafting Interpreters";
+      upTitle = "首页";
     }
 
     var previousPage = book.adjacentPage(page, -1);
@@ -73,7 +75,7 @@ class Mustache {
       "next_file": nextPage?.fileName,
       "next_type": nextType,
       "has_up": up != null,
-      "up": up,
+      "up": upTitle,
       "up_file": up != null ? toFileName(up) : null,
       // TODO: Only need this for contents page.
       "part_1": _makePartData(book, 0),

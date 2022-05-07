@@ -17,7 +17,9 @@ const contentsCN = {
   'Acknowledgements': '鸣谢',
   'Table of Contents': '目录',
   'Welcome': '欢迎',
-  'Introduction': '概览'
+  'Introduction': '概览',
+  'A Tree-Walk Interpreter': '漫说解释器',
+  'A Bytecode Virtual Machine': '字节码虚拟机',
 };
 
 const _tableOfContents = {
