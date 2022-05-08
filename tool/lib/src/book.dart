@@ -18,6 +18,8 @@ const contentsCN = {
   'Table of Contents': '目录',
   'Welcome': '欢迎',
   'Introduction': '概览',
+  'A Map of the Territory': '领域地图',
+  'The Lox Language': 'Lox语言',
   'A Tree-Walk Interpreter': '漫说解释器',
   'A Bytecode Virtual Machine': '字节码虚拟机',
 };

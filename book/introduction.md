@@ -3,64 +3,49 @@
 >
 > <cite>G.K. Chesterton by way of Neil Gaiman, <em>Coraline</em></cite>
 
-I'm really excited we're going on this journey together. This is a book on
-implementing interpreters for programming languages. It's also a book on how to
-design a language worth implementing. It's the book I wish I'd had when I first
-started getting into languages, and it's the book I've been writing in my <span
-name="head">head</span> for nearly a decade.
+我真的非常兴奋我们将要一起开始这趟旅程，
+这是一本关于如何实现编程语言解释器的书，
+也是一本如何设计一门实用编程语言的书，
+一本我第一次学编程语言时就希望能读到的书，一本我已经在<span
+name="head">脑子</span>里写了将近十年的书。
 
 <aside name="head">
 
-To my friends and family, sorry I've been so absentminded!
+我的朋友和家人们，请原谅我对你们的漫不经心！
 
 </aside>
 
-In these pages, we will walk step-by-step through two complete interpreters for
-a full-featured language. I assume this is your first foray into languages, so
-I'll cover each concept and line of code you need to build a complete, usable,
-fast language implementation.
+在本书中，我们将通过一步一步来实现2个解释器获得一个功能齐全的编程语言。
+我假设这是你第一次涉足编程语言实现，所以我将详细介绍构建一个完整的，可用的，快速的语言实现所需要的每一个概念和每一行代码。
 
-In order to cram two full implementations inside one book without it turning
-into a doorstop, this text is lighter on theory than others. As we build each
-piece of the system, I will introduce the history and concepts behind it. I'll
-try to get you familiar with the lingo so that if you ever find yourself at a
-<span name="party">cocktail party</span> full of PL (programming language)
-researchers, you'll fit in.
+为了能将2个解释器的完整实现塞进一本书而又要避免它厚的变成门档，本书在理论上会比其它的书介绍的更浅显易懂一些。
+在我们构建系统的每个部分时，我将介绍其背后的历史和概念。
+我会带领你熟悉这些术语，以便即使你发现自己在一个满是PL(编程语言)研究员的<span name="party">鸡尾酒会</span>，你依然可以谈笑风生。
 
 <aside name="party">
 
-Strangely enough, a situation I have found myself in multiple times. You
-wouldn't believe how much some of them can drink.
+奇怪的是,我已经多次发现一种情形，
+你真的不敢相信，有些人多能喝！
 
 </aside>
 
-But we're mostly going to spend our brain juice getting the language up and
-running. This is not to say theory isn't important. Being able to reason
-precisely and <span name="formal">formally</span> about syntax and semantics is
-a vital skill when working on a language. But, personally, I learn best by
-doing. It's hard for me to wade through paragraphs full of abstract concepts and
-really absorb them. But if I've coded something, run it, and debugged it, then I
-*get* it.
+但是我们依然要绞尽脑汁来让编程语言跑起来，这不是说理论不重要，在我们学习编程语言时，能够对语法和语义进行精确而<span name="formal">形式化</span>解释是一项很重要的能力。
+但是，对我个人来说，通过动手来学会学的更好。
+对我来说，只是阅读满是抽象概念的文字，将很难真正理解它们，但是一旦我写点代码，跑一跑，调试一下，然后我就*理解*了。
 
 <aside name="formal">
 
-Static type systems in particular require rigorous formal reasoning. Hacking on
-a type system has the same feel as proving a theorem in mathematics.
+静态类型系统尤其需要严格的形式化推理，破解类型系统和证明数学定理是一样的感觉。
 
-It turns out this is no coincidence. In the early half of last century, Haskell
-Curry and William Alvin Howard showed that they are two sides of the same coin:
-[the Curry-Howard isomorphism][].
-
-[the curry-howard isomorphism]: https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence
+事实证明，这并非巧合。
+上个世纪初，Haskell Curry和William Alvin Howard 已经证明他们是同一枚硬币的两面：[柯里-霍华德同构](https://zh.wikipedia.org/wiki/%E6%9F%AF%E9%87%8C-%E9%9C%8D%E5%8D%8E%E5%BE%B7%E5%90%8C%E6%9E%84)
 
 </aside>
 
-That's my goal for you. I want you to come away with a solid intuition of how a
-real language lives and breathes. My hope is that when you read other, more
-theoretical books later, the concepts there will firmly stick in your mind,
-adhered to this tangible substrate.
+这是我对你制定的目标，我希望你学完后拥有坚实的直觉，来理解编程语言的生老病死和一颦一笑。
+我希望当你以后阅读更理论一些的书时，那些概念能牢牢的留在你的脑海里，附着在这个有形的基底上。
 
-## Why Learn This Stuff?
+## 为什么要学习这些东西?
 
 Every introduction to every compiler book seems to have this section. I don't
 know what it is about programming languages that causes such existential doubt.
@@ -160,7 +145,7 @@ braver than you were before.
 
 And, who knows, maybe you *will* make the next great language. Someone has to.
 
-## How the Book Is Organized
+## 这本书的组织方式
 
 This book is broken into three parts. You're reading the first one now. It's a
 couple of chapters to get you oriented, teach you some of the lingo that
@@ -284,7 +269,7 @@ drawings.
 
 </aside>
 
-### Challenges
+### 挑战
 
 Each chapter ends with a few exercises. Unlike textbook problem sets, which tend
 to review material you already covered, these are to help you learn *more* than
@@ -342,7 +327,7 @@ expert on this -- I don't know if anyone really is -- so take these with a large
 pinch of salt. That should make them tastier food for thought, which is my main
 aim.
 
-## The First Interpreter
+## 第一个解释器
 
 We'll write our first interpreter, jlox, in <span name="lang">Java</span>. The
 focus is on *concepts*. We'll write the simplest, cleanest code we can to
@@ -407,7 +392,7 @@ very fast, but it's correct. However, we are only able to accomplish that by
 building on the Java virtual machine's own runtime facilities. We want to learn
 how Java *itself* implements those things.
 
-## The Second Interpreter
+## 第二个解释器
 
 So in the next part, we start all over again, but this time in C. C is the
 perfect language for understanding how an implementation *really* works, all the
@@ -456,7 +441,7 @@ few thousand lines of code.
 
 <div class="challenges">
 
-## Challenges
+## 挑战
 
 1.  There are at least six domain-specific languages used in the [little system
     I cobbled together][repo] to write and publish this book. What are they?
@@ -476,7 +461,7 @@ few thousand lines of code.
 
 <div class="design-note">
 
-## Design Note: What's in a Name?
+## 设计笔记: 如何为编程语言起名字?
 
 One of the hardest challenges in writing this book was coming up with a name for
 the language it implements. I went through *pages* of candidates before I found

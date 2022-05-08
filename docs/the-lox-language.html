@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" content="text/html" />
-  <title>The Lox Language &middot; 自己动手写解释器</title>
+  <title>Lox语言 &middot; 自己动手写解释器</title>
 
   <!-- Tell mobile browsers we're optimized for them and they don't need to crop
      the viewport. -->
@@ -26,27 +26,27 @@
   <!-- <div class="scrim"></div> --><nav class="wide">
   <a href="/"><img src="image/logotype.png" title="自己动手写解释器"></a>
   <div class="contents">
-        <h3><a href="#top">The Lox Language<small>3</small></a></h3>
+        <h3><a href="#top">Lox语言<small>3</small></a></h3>
     
     <ul>
-        <li><a href="#hello-lox"><small>3.1</small> Hello, Lox</a></li>
-        <li><a href="#a-high-level-language"><small>3.2</small> A High-Level Language</a></li>
-        <li><a href="#data-types"><small>3.3</small> Data Types</a></li>
-        <li><a href="#expressions"><small>3.4</small> Expressions</a></li>
-        <li><a href="#statements"><small>3.5</small> Statements</a></li>
-        <li><a href="#variables"><small>3.6</small> Variables</a></li>
-        <li><a href="#control-flow"><small>3.7</small> Control Flow</a></li>
-        <li><a href="#functions"><small>3.8</small> Functions</a></li>
-        <li><a href="#classes"><small>3.9</small> Classes</a></li>
-        <li><a href="#the-standard-library"><small>3.10</small> The Standard Library</a></li>
-        <li class="divider"></li>
-        <li class="end-part"><a href="#challenges">Challenges</a></li>
-        <li class="end-part"><a href="#design-note"><small>note</small>Expressions and Statements</a></li>
+      <li><a href="#hello-lox"><small>3.1</small> Hello, Lox</a></li>
+      <li><a href="#a-high-level-language"><small>3.2</small> A High-Level Language</a></li>
+      <li><a href="#data-types"><small>3.3</small> Data Types</a></li>
+      <li><a href="#expressions"><small>3.4</small> Expressions</a></li>
+      <li><a href="#statements"><small>3.5</small> Statements</a></li>
+      <li><a href="#variables"><small>3.6</small> Variables</a></li>
+      <li><a href="#control-flow"><small>3.7</small> Control Flow</a></li>
+      <li><a href="#functions"><small>3.8</small> Functions</a></li>
+      <li><a href="#classes"><small>3.9</small> Classes</a></li>
+      <li><a href="#the-standard-library"><small>3.10</small> The Standard Library</a></li>
+      <li class="divider"></li>
+      <li class="end-part"><a href="#challenges">挑战</a></li>
+      <li class="end-part"><a href="#design-note"><small>记</small> Expressions and Statements</a></li>
     </ul>
     
     
         <div class="prev-next">
-      <a href="a-map-of-the-territory.html" title="A Map of the Territory" class="left">&larr;&nbsp;前一页</a>
+      <a href="a-map-of-the-territory.html" title="领域地图" class="left">&larr;&nbsp;前一页</a>
       <a href="welcome.html" title="欢迎">&uarr;&nbsp;欢迎</a>
       <a href="a-tree-walk-interpreter.html" title="漫说解释器" class="right">后一页&nbsp;&rarr;</a>
     </div> </div>
@@ -54,7 +54,7 @@
 
 <nav class="narrow">
   <a href="/"><img src="image/logotype.png" title="自己动手写解释器"></a>
-  <a href="a-map-of-the-territory.html" title="A Map of the Territory" class="prev">←</a>
+  <a href="a-map-of-the-territory.html" title="领域地图" class="prev">←</a>
   <a href="a-tree-walk-interpreter.html" title="漫说解释器" class="next">→</a>
 </nav>
 
@@ -63,27 +63,27 @@
     <nav class="floating">
       <a href="/"><img src="image/logotype.png" title="自己动手写解释器"></a>
       <div class="expandable">
-        <h3><a href="#top">The Lox Language<small>3</small></a></h3>
+        <h3><a href="#top">Lox语言<small>3</small></a></h3>
         
         <ul>
-            <li><a href="#hello-lox"><small>3.1</small> Hello, Lox</a></li>
-            <li><a href="#a-high-level-language"><small>3.2</small> A High-Level Language</a></li>
-            <li><a href="#data-types"><small>3.3</small> Data Types</a></li>
-            <li><a href="#expressions"><small>3.4</small> Expressions</a></li>
-            <li><a href="#statements"><small>3.5</small> Statements</a></li>
-            <li><a href="#variables"><small>3.6</small> Variables</a></li>
-            <li><a href="#control-flow"><small>3.7</small> Control Flow</a></li>
-            <li><a href="#functions"><small>3.8</small> Functions</a></li>
-            <li><a href="#classes"><small>3.9</small> Classes</a></li>
-            <li><a href="#the-standard-library"><small>3.10</small> The Standard Library</a></li>
-            <li class="divider"></li>
-            <li class="end-part"><a href="#challenges">Challenges</a></li>
-            <li class="end-part"><a href="#design-note"><small>note</small>Expressions and Statements</a></li>
+          <li><a href="#hello-lox"><small>3.1</small> Hello, Lox</a></li>
+          <li><a href="#a-high-level-language"><small>3.2</small> A High-Level Language</a></li>
+          <li><a href="#data-types"><small>3.3</small> Data Types</a></li>
+          <li><a href="#expressions"><small>3.4</small> Expressions</a></li>
+          <li><a href="#statements"><small>3.5</small> Statements</a></li>
+          <li><a href="#variables"><small>3.6</small> Variables</a></li>
+          <li><a href="#control-flow"><small>3.7</small> Control Flow</a></li>
+          <li><a href="#functions"><small>3.8</small> Functions</a></li>
+          <li><a href="#classes"><small>3.9</small> Classes</a></li>
+          <li><a href="#the-standard-library"><small>3.10</small> The Standard Library</a></li>
+          <li class="divider"></li>
+          <li class="end-part"><a href="#challenges">挑战</a></li>
+          <li class="end-part"><a href="#design-note"><small>记</small> Expressions and Statements</a></li>
         </ul>
         
         
                 <div class="prev-next">
-          <a href="a-map-of-the-territory.html" title="A Map of the Territory" class="left">&larr;&nbsp;前一页</a>
+          <a href="a-map-of-the-territory.html" title="领域地图" class="left">&larr;&nbsp;前一页</a>
           <a href="welcome.html" title="欢迎">&uarr;&nbsp;欢迎</a>
           <a href="a-tree-walk-interpreter.html" title="漫说解释器" class="right">后一页&nbsp;&rarr;</a>
         </div>      </div>
@@ -94,7 +94,7 @@
   <article class="chapter">
 
     <div class="number">3</div>
-    <h1>The Lox Language</h1>
+    <h1>Lox语言</h1>
 
     <blockquote>
 <p>What nicer thing can you do for somebody than make them breakfast?</p>

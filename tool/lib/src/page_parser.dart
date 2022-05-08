@@ -51,7 +51,7 @@ PageFile parsePage(Page page) {
 
       if (header.isChallenges) hasChallenges = true;
       if (header.isDesignNote) {
-        designNote = header.name.substring("Design Note: ".length);
+        designNote = header.name.substring(header.name.indexOf(":") + 1);
       }
 
       headers[line] = header;

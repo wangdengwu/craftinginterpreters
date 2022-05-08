@@ -136,10 +136,11 @@ class Header {
   bool get isChallenges {
     // Check for a subheader because there is a "Challenges" *subheader* in
     // the Introduction.
-    return name == "Challenges" && level == 2;
+    return (name == "Challenges" || name == "挑战") && level == 2;
   }
 
-  bool get isDesignNote => name.startsWith("Design Note:");
+  bool get isDesignNote =>
+      name.startsWith("Design Note:") || name.startsWith("设计笔记:");
 
   String get anchor {
     if (isChallenges) return "challenges";
