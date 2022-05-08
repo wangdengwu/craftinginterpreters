@@ -117,77 +117,44 @@ name="head">脑子</span>里写了将近十年的书。</p>
 <p>这是我对你制定的目标，我希望你学完后拥有坚实的直觉，来理解编程语言的生老病死和一颦一笑。
 我希望当你以后阅读更理论一些的书时，那些概念能牢牢的留在你的脑海里，附着在这个有形的基底上。</p>
 <h2><a href="#为什么要学习这些东西" id="为什么要学习这些东西"><small>1&#8202;.&#8202;1</small>为什么要学习这些东西?</a></h2>
-<p>Every introduction to every compiler book seems to have this section. I don&rsquo;t
-know what it is about programming languages that causes such existential doubt.
-I don&rsquo;t think ornithology books worry about justifying their existence. They
-assume the reader loves birds and start teaching.</p>
-<p>But programming languages are a little different. I suppose it is true that the
-odds of any of us creating a broadly successful, general-purpose programming
-language are slim. The designers of the world&rsquo;s widely used languages could fit
-in a Volkswagen bus, even without putting the pop-top camper up. If joining that
-elite group was the <em>only</em> reason to learn languages, it would be hard to
-justify. Fortunately, it isn&rsquo;t.</p>
-<h3><a href="#little-languages-are-everywhere" id="little-languages-are-everywhere"><small>1&#8202;.&#8202;1&#8202;.&#8202;1</small>Little languages are everywhere</a></h3>
-<p>For every successful general-purpose language, there are a thousand successful
-niche ones. We used to call them &ldquo;little languages&rdquo;, but inflation in the jargon
-economy led to the name &ldquo;domain-specific languages&rdquo;. These are pidgins
-tailor-built to a specific task. Think application scripting languages, template
-engines, markup formats, and configuration files.</p>
-<p><span name="little"></span><img src="image/introduction/little-languages.png" alt="A random selection of little languages." /></p>
+<p>每一本编译器相关书籍的前言似乎都有这一节，我不知道是什么导致编程语言会有这种存在性怀疑。
+我不认为鸟类学书籍会担心其存在的合理性，他们假设读者喜欢鸟，然后开始教学。</p>
+<p>但是编译语言有一点不同，我认为，我们中的任何一个人，成功创造一个被广泛应用的通用性编程语言的几率是很小的。
+世界级流行编程语言的设计者们，一辆大众大巴就可以装得下，甚至都不需要把顶棚打开。
+如果加入那种精英组织才是学习编程语言的唯一原因的话，确实很难给出合理的理由，幸运的是，只要你感兴趣，就可以学习。</p>
+<h3><a href="#小众语言到处都是" id="小众语言到处都是"><small>1&#8202;.&#8202;1&#8202;.&#8202;1</small>小众语言到处都是</a></h3>
+<p>对于每一种成功的通用语言，都有一千种成功的细分语言。
+我们习惯称它们为&ldquo;小众语言&ldquo;，但是专业术语的滥用导致称之为&ldquo;领域特定语言&ldquo;。
+它们是为特殊任务量身定做的混合语言，例如程序脚本语言，模板引擎，标记格式化和配置文件。</p>
+<p><span name="little"></span><img src="image/introduction/little-languages.png" alt="随机选择的小众语言" /></p>
 <aside name="little">
-<p>A random selection of some little languages you might run into.</p>
+<p>随机选择的一些小众语言，你可能曾经使用过</p>
 </aside>
-<p>Almost every large software project needs a handful of these. When you can, it&rsquo;s
-good to reuse an existing one instead of rolling your own. Once you factor in
-documentation, debuggers, editor support, syntax highlighting, and all of the
-other trappings, doing it yourself becomes a tall order.</p>
-<p>But there&rsquo;s still a good chance you&rsquo;ll find yourself needing to whip up a parser
-or other tool when there isn&rsquo;t an existing library that fits your needs. Even
-when you are reusing some existing implementation, you&rsquo;ll inevitably end up
-needing to debug and maintain it and poke around in its guts.</p>
-<h3><a href="#languages-are-great-exercise" id="languages-are-great-exercise"><small>1&#8202;.&#8202;1&#8202;.&#8202;2</small>Languages are great exercise</a></h3>
-<p>Long distance runners sometimes train with weights strapped to their ankles or
-at high altitudes where the atmosphere is thin. When they later unburden
-themselves, the new relative ease of light limbs and oxygen-rich air enables
-them to run farther and faster.</p>
-<p>Implementing a language is a real test of programming skill. The code is complex
-and performance critical. You must master recursion, dynamic arrays, trees,
-graphs, and hash tables. You probably use hash tables at least in your
-day-to-day programming, but do you <em>really</em> understand them? Well, after we&rsquo;ve
-crafted our own from scratch, I guarantee you will.</p>
-<p>While I intend to show you that an interpreter isn&rsquo;t as daunting as you might
-believe, implementing one well is still a challenge. Rise to it, and you&rsquo;ll come
-away a stronger programmer, and smarter about how you use data structures and
-algorithms in your day job.</p>
-<h3><a href="#one-more-reason" id="one-more-reason"><small>1&#8202;.&#8202;1&#8202;.&#8202;3</small>One more reason</a></h3>
-<p>This last reason is hard for me to admit, because it&rsquo;s so close to my heart.
-Ever since I learned to program as a kid, I felt there was something magical
-about languages. When I first tapped out BASIC programs one key at a time I
-couldn&rsquo;t conceive how BASIC <em>itself</em> was made.</p>
-<p>Later, the mixture of awe and terror on my college friends&rsquo; faces when talking
-about their compilers class was enough to convince me language hackers were a
-different breed of human<span class="em">&mdash;</span>some sort of wizards granted privileged access to
-arcane arts.</p>
-<p>It&rsquo;s a charming <span name="image">image</span>, but it has a darker side. <em>I</em>
-didn&rsquo;t feel like a wizard, so I was left thinking I lacked some inborn quality
-necessary to join the cabal. Though I&rsquo;ve been fascinated by languages ever since
-I doodled made-up keywords in my school notebook, it took me decades to muster
-the courage to try to really learn them. That &ldquo;magical&rdquo; quality, that sense of
-exclusivity, excluded <em>me</em>.</p>
+<p>几乎每个大型软件项目都需要其中的一小部分，如果可以，重用已有的总是好的。一旦你把文档，调试器，编辑器支持，语法高亮，等等考虑进来，自己实现功能就变成了棘手的事情。</p>
+<p>当没有合适的类库满足你的需求时，将会有很大可能，你会发现你需要自己改造分析器或者其它工具。
+即使当你重用一些已有的实现时，你也不可避免地需要调试和维护它们，并在其内部探索。</p>
+<h3><a href="#语言是很好的锻炼" id="语言是很好的锻炼"><small>1&#8202;.&#8202;1&#8202;.&#8202;2</small>语言是很好的锻炼</a></h3>
+<p>长跑运动员有时候会在他们脚踝上绑上重物或者在氧气稀薄的高海拔地区来进行训练。
+当他们后来卸下自己的负担时，相对轻巧的四肢，富含氧气的空气能让他们跑的更远和更快。</p>
+<p>实现一门语言是对编程技能的真正考验，代码很复杂，而性能很关键。你必须掌握递归、动态数组、树、图和哈希表。
+你可能已经在日常编程工作中使用过哈希表了，但是你<em>真正</em>理解他们了吗？等我们从零制作我们自己的哈希表之后，我保证你会真正理解。</p>
+<p>虽然我想向你展示一个解释器并不像你认为的那样令人生畏，但实现一个好的解释器依然是一个挑战。战胜它，你将会成为更强的程序员，可以更聪明的使用你日常工作中遇到的数据结构和算法。</p>
+<h3><a href="#还有一个原因" id="还有一个原因"><small>1&#8202;.&#8202;1&#8202;.&#8202;3</small>还有一个原因</a></h3>
+<p>最后一个原因我很难承认，因为它是我的心事。
+自从我小时候学会编程以来，我就觉得编程语言有一些神奇的东西。
+当我第一次一个键一个键地输入BASIC程序时，我无法想象BASIC语言<em>本身</em>是如何制作出来的。</p>
+<p>后来，当我的大学朋友们谈论他们的编译器课程时，脸上那种既敬畏又恐惧的表情足以让我相信，编程语言黑客是不同的一类人，某种获得了通向神秘艺术的特权的巫师。</p>
+<p>这是一张迷人的<span name="image">图片</span>，但是它也有黑暗的一面。
+<em>我</em>感觉自己不像个巫师，所以我认为自己缺乏加入秘社所需的先天品质。
+虽然自从我在学校笔记本上随手涂鸦关键字以来，我一直对编程语言着迷，但是我花了很长时间才鼓起勇气试着真正去学习。
+那种“神奇”的品质，那种排他性的感觉，将<em>我</em>挡在门外。</p>
 <aside name="image">
-<p>And its practitioners don&rsquo;t hesitate to play up this image. Two of the seminal
-texts on programming languages feature a <a href="https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools">dragon</a> and a <a href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">wizard</a> on their
-covers.</p>
+<p>编程语言的从业者们会毫不犹豫的把玩这张图片，
+2个开创性的编程语言书籍在它们的封面展示了<a href="https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools">龙</a>和<a href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">巫师</a></p>
 </aside>
-<p>When I did finally start cobbling together my own little interpreters, I quickly
-learned that, of course, there is no magic at all. It&rsquo;s just code, and the
-people who hack on languages are just people.</p>
-<p>There <em>are</em> a few techniques you don&rsquo;t often encounter outside of languages, and
-some parts are a little difficult. But not more difficult than other obstacles
-you&rsquo;ve overcome. My hope is that if you&rsquo;ve felt intimidated by languages and
-this book helps you overcome that fear, maybe I&rsquo;ll leave you just a tiny bit
-braver than you were before.</p>
-<p>And, who knows, maybe you <em>will</em> make the next great language. Someone has to.</p>
+<p>当我最终开始拼凑我自己的小型编译器时，我很快意识到，根本就没有魔法。编译器只是代码，而那些掌握编程语言实现的人也只是人。</p>
+<p>确实<em>有</em>一些技术是你在编程语言之外不会经常遇到的，而且有些部分有点难。但不会比你克服的其他障碍更困难。如果你曾经被编程语言吓到，希望这本书能帮助你克服这种恐惧，也许我会让你比以前更勇敢一点。</p>
+<p>而且，谁知道呢，也许你<em>会</em>创造出下一个伟大的编程语言呢，一定有人会的。</p>
 <h2><a href="#这本书的组织方式" id="这本书的组织方式"><small>1&#8202;.&#8202;2</small>这本书的组织方式</a></h2>
 <p>This book is broken into three parts. You&rsquo;re reading the first one now. It&rsquo;s a
 couple of chapters to get you oriented, teach you some of the lingo that
