@@ -33,12 +33,16 @@
     {{/ has_number }}
     {{# is_chapter }}
     <h1>{{ title }}</h1>
+    <a href="#top" id="top" />
     {{/ is_chapter }}
     {{^ is_chapter }}
     <h1 class="part">{{ title }}</h1>
     {{/ is_chapter }}
 
     {{{ body }}}
+    <a class="top" href="#top">
+      <p class="top">Top</p>
+    </a>
     <footer>
       {{# has_next }}
       <a href="{{ next_file }}.html" class="next">

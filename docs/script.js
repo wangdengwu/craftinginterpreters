@@ -1,14 +1,17 @@
-$(function() {
-  $("#expand-nav").click(function() {
+$(function () {
+  $("#expand-nav").click(function () {
     $(".expandable").toggleClass("shown");
   });
 
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     var nav = $("nav.floating");
+    var top = $("a.top");
     if ($(window).scrollTop() > 84) {
       nav.addClass("pinned");
+      top.addClass("pinned");
     } else {
       nav.removeClass("pinned");
+      top.removeClass("pinned");
     }
   });
 
@@ -16,13 +19,13 @@ $(function() {
 
   // Since we may not have the height correct for the images, adjust the asides
   // too when an image is loaded.
-  $("img").on("load", function() {
+  $("img").on("load", function () {
     refreshAsides();
   });
 
   // On the off chance the browser supports the new font loader API, use it.
   if (document.fontloader) {
-    document.fontloader.notifyWhenFontsReady(function() {
+    document.fontloader.notifyWhenFontsReady(function () {
       refreshAsides();
     });
   }
@@ -35,7 +38,7 @@ $(function() {
 });
 
 function refreshAsides() {
-  $("aside").each(function() {
+  $("aside").each(function () {
     var aside = $(this);
 
     // If the asides are inline, clear their position.
@@ -67,9 +70,9 @@ function refreshAsides() {
     }
 
     if (aside.hasClass("bottom")) {
-      aside.offset({top: pos.top + 23 - aside.height()});
+      aside.offset({ top: pos.top + 23 - aside.height() });
     } else {
-      aside.offset({top: pos.top - 6});
+      aside.offset({ top: pos.top - 6 });
     }
   });
 }

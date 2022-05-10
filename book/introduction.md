@@ -236,133 +236,92 @@ name="fortran">FORTRAN 77</span>实现。在某个时候，你会发现自己正
 
 ## 第一个解释器
 
-We'll write our first interpreter, jlox, in <span name="lang">Java</span>. The
-focus is on *concepts*. We'll write the simplest, cleanest code we can to
-correctly implement the semantics of the language. This will get us comfortable
-with the basic techniques and also hone our understanding of exactly how the
-language is supposed to behave.
+我们将使用<span name="lang">Java</span>来写我们的第一个解释器jlox。
+将关注点放在*概念*上，我们将会使用简单，整洁的代码，准确的实现该编程语言的语义。
+这将使我们舒服的使用熟悉的技术，逐步明白，编程语言的机制究竟是如何执行的。
 
 <aside name="lang">
 
-The book uses Java and C, but readers have ported the code to [many other
-languages][port]. If the languages I picked aren't your bag, take a look at
-those.
+本书使用Java和C语言，但也有读者已将代码移植到 [许多其他语言][port]。如果我选择的语言不是你的菜，可以看看[这里][port]。
 
 [port]: https://github.com/munificent/craftinginterpreters/wiki/Lox-implementations
 
 </aside>
 
-Java is a great language for this. It's high level enough that we don't get
-overwhelmed by fiddly implementation details, but it's still pretty explicit.
-Unlike in scripting languages, there tends to be less complex machinery hiding
-under the hood, and you've got static types to see what data structures you're
-working with.
+Java是一门不错的语言来做这件事情，它的抽象层级足够高，我们不会被繁琐的实现细节淹没，但代码依然比较清晰。
+不像脚本语言, 往往将不太复杂的机制隐藏在内部。并且你还能使用静态类型，清楚的知道你正在使用的数据结构是什么。
 
-I also chose Java specifically because it is an object-oriented language. That
-paradigm swept the programming world in the '90s and is now the dominant way of
-thinking for millions of programmers. Odds are good you're already used to
-organizing code into classes and methods, so we'll keep you in that comfort
-zone.
+我选择Java的另外一个特别原因是，它是面向对象的语言。这种范式在90年代席卷了编程世界，如今已成为数百万程序员的主流思维方式。 
+很有可能你已经习惯于将代码组织成类和方法，因此我们将让你以熟悉的方式完成。
 
-While academic language folks sometimes look down on object-oriented languages,
-the reality is that they are widely used even for language work. GCC and LLVM
-are written in C++, as are most JavaScript virtual machines. Object-oriented
-languages are ubiquitous, and the tools and compilers *for* a language are often
-written *in* the <span name="host">same language</span>.
+虽然编程语言学术派有时候看不起面向对象语言，但事实是它们已经被企业广泛使用。
+GCC和LLVM是用C++写的，大多数JavaScript虚拟机也是这样。面向对象语言无处不在，一种语言的工具和编译器通常是
+用<span name="host">同一种语言</span>写成的。
 
 <aside name="host">
 
-A compiler reads files in one language, translates them, and outputs files in
-another language. You can implement a compiler in any language, including the
-same language it compiles, a process called **self-hosting**.
+编译器读取一种语言的源文件，翻译它们，然后输入另一种语言的源文件。你可以用任何一种语言来实现编译器，包括使用你要编译的语言，这一过程叫做**自举**。
 
-You can't compile your compiler using itself yet, but if you have another
-compiler for your language written in some other language, you use *that* one to
-compile your compiler once. Now you can use the compiled version of your own
-compiler to compile future versions of itself, and you can discard the original
-one compiled from the other compiler. This is called **bootstrapping**, from
-the image of pulling yourself up by your own bootstraps.
+虽然你还不能使用你的编程语言编译你的编译器，但是如果你有另外一种语言写出来的编译器，它可以编译你的语言，
+你使用它编译出你的编译器，现在你就可以使用已经编译好的编译器（此编译器是使用你自己的语言写的），去编译你自己的后续版本了。
+你可以抛弃最初的那个使用其它语言编写的编译器了，这叫做**引导**，正如图片所示：通过你自己的拔靴带把自己拉起来。
 
-<img src="image/introduction/bootstrap.png" alt="Fact: This is the primary mode of transportation of the American cowboy." />
+<img src="image/introduction/bootstrap.png" alt="事实:这是美国牛仔的主要交通工具" />
 
 </aside>
 
-And, finally, Java is hugely popular. That means there's a good chance you
-already know it, so there's less for you to learn to get going in the book. If
-you aren't that familiar with Java, don't freak out. I try to stick to a fairly
-minimal subset of it. I use the diamond operator from Java 7 to make things a
-little more terse, but that's about it as far as "advanced" features go. If you
-know another object-oriented language, like C# or C++, you can muddle through.
+最终，Java非常流行。这意味着有很大可能你已经懂Java了，所以你基本上不需要学什么就可以开始读这本书了。
+如果你对Java不熟悉，不要惊慌。我会尽力使用它很小的子集，我将使用Java 7的泛型让代码更简洁一些，这就是所谓的“高级”功能了。
+如果你懂其它的面向对象语言，比如C#或C++，你就不会有障碍。
 
-By the end of part II, we'll have a simple, readable implementation. It's not
-very fast, but it's correct. However, we are only able to accomplish that by
-building on the Java virtual machine's own runtime facilities. We want to learn
-how Java *itself* implements those things.
+在第二部分结束时，我们将得到一个简单易读的解释器实现。它虽然性能不好，但是至少正确。然而，我们依赖Java虚拟机运行时来完成，我们想知道Java自身是如何实现这些功能的。
 
 ## 第二个解释器
 
-So in the next part, we start all over again, but this time in C. C is the
-perfect language for understanding how an implementation *really* works, all the
-way down to the bytes in memory and the code flowing through the CPU.
+所以在接下来的部分，我们从头开始，这一次我们使用C。C语言是理解实现是如何*真正*工作的完美语言，所有细节，包括内存中的字节和CPU中执行的指令。
 
 A big reason that we're using C is so I can show you things C is particularly
-good at, but that *does* mean you'll need to be pretty comfortable with it. You
-don't have to be the reincarnation of Dennis Ritchie, but you shouldn't be
-spooked by pointers either.
+good at, 
+我们将使用C语言的一个重要原因是，我可以向你展示它特别擅长的地方，但是这*确实*意味着你需要对使用C语言充满自信。
+你不必成为丹尼斯·里奇（C语言之父），但是你也不应该被指针吓尿。
 
-If you aren't there yet, pick up an introductory book on C and chew through it,
-then come back here when you're done. In return, you'll come away from this book
-an even stronger C programmer. That's useful given how many language
-implementations are written in C: Lua, CPython, and Ruby's MRI, to name a few.
+如果你对C语言一窍不通，拿本介绍C语言的书，吃了它（囫囵吞枣式的读一下），吃饱喝足后再回来。
+作为回报，当你读完本书，你将成为一个更强大的C程序员。
+给你看看有多少语言是使用C写的：Lua，CPython， Ruby's MRI等等。
 
-In our C interpreter, <span name="clox">clox</span>, we are forced to implement
-for ourselves all the things Java gave us for free. We'll write our own dynamic
-array and hash table. We'll decide how objects are represented in memory, and
-build a garbage collector to reclaim them.
+在我们的C解释器<span name="clox">clox</span>中，我们必须自己实现所有Java免费给我们的数据结构。
+我们将写自己的动态数组，哈希表，我们将设计对象如何占据内存，并且开发一个垃圾收集器来回收它们。
 
 <aside name="clox">
 
-I pronounce the name like "sea-locks", but you can say it "clocks" or even
-"cloch", where you pronounce the "x" like the Greeks do if it makes you happy.
+我把名字读作“sea-locks”, 但是你也可以读作“clocks”甚至“cloch”，你可以像希腊人那样读“x”，如果这能让你开心的话。
 
 </aside>
 
-Our Java implementation was focused on being correct. Now that we have that
-down, we'll turn to also being *fast*. Our C interpreter will contain a <span
-name="compiler">compiler</span> that translates Lox to an efficient bytecode
-representation (don't worry, I'll get into what that means soon), which it then
-executes. This is the same technique used by implementations of Lua, Python,
-Ruby, PHP, and many other successful languages.
+我们的Java实现专注于正确性，既然我们已经完成了，我们将转向*性能*。
+我们的C解释器将包含一个<span name="compiler">编译器</span>，该编译器会将Lox转换为有效的字节码形式（不用担心，我很快就会讲解这是什么意思），之后它会执行对应的字节码
+这与Lua，Python，Ruby，PHP和许多其它成功的编程语言的实现所使用的技术相同。
 
 <aside name="compiler">
 
-Did you think this was just an interpreter book? It's a compiler book as well.
-Two for the price of one!
+你以为这只是一本讲解释器的书吗？它也是一本讲编译器的书，买一送一。
 
 </aside>
 
-We'll even try our hand at benchmarking and optimization. By the end, we'll have
-a robust, accurate, fast interpreter for our language, able to keep up with
-other professional caliber implementations out there. Not bad for one book and a
-few thousand lines of code.
+我们甚至会尝试进行基准测试和优化。到最后，我们有一个强大，准确，快速的Lox解释器，并能够不落后于其他专业水平的实现。对于只有几千行代码和一本书来说，还不赖吧。
 
 <div class="challenges">
 
 ## 挑战
 
-1.  There are at least six domain-specific languages used in the [little system
-    I cobbled together][repo] to write and publish this book. What are they?
+1. 在我编写的这个[小系统][repo]中，至少有六种领域特定语言，它们是什么？
 
-1.  Get a "Hello, world!" program written and running in Java. Set up whatever
-    makefiles or IDE projects you need to get it working. If you have a
-    debugger, get comfortable with it and step through your program as it runs.
+2. 使用Java编写并运行一个“Hello, world!”程序，设置好随便一个makefiles或IDE项目使其正常工作。如果你有调试器，请先熟悉一下，并在程序运行时对代码逐步调试。
 
-1.  Do the same thing for C. To get some practice with pointers, define a
-    [doubly linked list][] of heap-allocated strings. Write functions to insert,
-    find, and delete items from it. Test them.
+3. 对C也进行同样的操作，做一些指针的练习，定义一个使用[双向链表][]实现的堆字符串，实现插入，查找和删除操作，测一测。
 
 [repo]: https://github.com/munificent/craftinginterpreters
-[doubly linked list]: https://en.wikipedia.org/wiki/Doubly_linked_list
+[双向链表]: https://zh.wikipedia.org/wiki/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8
 
 </div>
 
@@ -370,34 +329,18 @@ few thousand lines of code.
 
 ## 设计笔记: 如何为编程语言起名字?
 
-One of the hardest challenges in writing this book was coming up with a name for
-the language it implements. I went through *pages* of candidates before I found
-one that worked. As you'll discover on the first day you start building your own
-language, naming is deviously hard. A good name satisfies a few criteria:
+写这本书最困难的挑战就是为其实现的编程语言取个名字。在我找到合适的之前，我准备了好几页备选名称。
+当你某一天开始构建自己的编程语言时，你就会发现命名是非常困难的。一个好名字要满足几个标准:
 
-1.  **It isn't in use.** You can run into all sorts of trouble, legal and
-    social, if you inadvertently step on someone else's name.
+1.  **尚未使用** 如果你不经意间和别人重名了，就可能会遇到各种麻烦，比如法律问题或社会影响。
 
-2.  **It's easy to pronounce.** If things go well, hordes of people will be
-    saying and writing your language's name. Anything longer than a couple of
-    syllables or a handful of letters will annoy them to no end.
+2.  **容易发音** 如果发展的还不错，将会有很多人使用你的语言名称，任何超过几个音节或几个字母的东西都会让他们烦恼不已。
 
-3.  **It's distinct enough to search for.** People will Google your language's
-    name to learn about it, so you want a word that's rare enough that most
-    results point to your docs. Though, with the amount of AI search engines are
-    packing today, that's less of an issue. Still, you won't be doing your users
-    any favors if you name your language "for".
+3.  **区别度高，易于搜索** 人们会使用Google搜索你的语言名称来学习它，所以你需要一个足够独特的单词，以便大多数搜索结果都会指向你的文档。
+    不过，随着人工智能搜索引擎数量的增加，这已经不是什么大问题了。尽管如此，如果您将语言命名为“for”，那将不会对您的用户有任何好处。
 
-4.  **It doesn't have negative connotations across a number of cultures.** This
-    is hard to be on guard for, but it's worth considering. The designer of
-    Nimrod ended up renaming his language to "Nim" because too many people
-    remember that Bugs Bunny used "Nimrod" as an insult. (Bugs was using it
-    ironically.)
+4.  **在多种文化中，都没有负面的含义** 这很难防范，但是值得深思。Nimrod编程语言的设计师最终将其语言重命名为“Nim”，因为太多的人只记得Bugs Bunny（兔八哥）使用“Nimrod”作为一种侮辱。(Bugs却还在被使用)
 
-If your potential name makes it through that gauntlet, keep it. Don't get hung
-up on trying to find an appellation that captures the quintessence of your
-language. If the names of the world's other successful languages teach us
-anything, it's that the name doesn't matter much. All you need is a reasonably
-unique token.
+如果你潜在的名字通过了考验，就保留它吧。不要沉迷于试图找到一个能抓住你语言精髓的名称。如果说世界上其他成功的编程语言的名字教会了我们什么的话，那就是编程语言的名字并不重要。 你所需要的只是一个接近独一无二的标记。
 
 </div>
