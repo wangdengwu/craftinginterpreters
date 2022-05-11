@@ -29,7 +29,7 @@
         <h3><a href="#top">领域地图<small>2</small></a></h3>
     
     <ul>
-      <li><a href="#the-parts-of-a-language"><small>2.1</small> The Parts of a Language</a></li>
+      <li><a href="#编程语言的组成部分"><small>2.1</small> 编程语言的组成部分</a></li>
       <li><a href="#shortcuts-and-alternate-routes"><small>2.2</small> Shortcuts and Alternate Routes</a></li>
       <li><a href="#compilers-and-interpreters"><small>2.3</small> Compilers and Interpreters</a></li>
       <li><a href="#our-journey"><small>2.4</small> Our Journey</a></li>
@@ -59,7 +59,7 @@
         <h3><a href="#top">领域地图<small>2</small></a></h3>
         
         <ul>
-          <li><a href="#the-parts-of-a-language"><small>2.1</small> The Parts of a Language</a></li>
+          <li><a href="#编程语言的组成部分"><small>2.1</small> 编程语言的组成部分</a></li>
           <li><a href="#shortcuts-and-alternate-routes"><small>2.2</small> Shortcuts and Alternate Routes</a></li>
           <li><a href="#compilers-and-interpreters"><small>2.3</small> Compilers and Interpreters</a></li>
           <li><a href="#our-journey"><small>2.4</small> Our Journey</a></li>
@@ -84,54 +84,31 @@
     <a href="#top" id="top"></a>
 
     <blockquote>
-<p>You must have a map, no matter how rough. Otherwise you wander all over the
-place. In <em>The Lord of the Rings</em> I never made anyone go farther than he could
-on a given day.</p>
-<p><cite>J. R. R. Tolkien</cite></p>
+<p>你必须要有一张地图，无论它是多么粗糙，否则你会到处乱逛。
+在《指环王》中，我从未让任何人在一天里走得距离超出他力所能及的范围。</p>
+<p><cite>J.R.R.托尔金</cite></p>
 </blockquote>
-<p>We don&rsquo;t want to wander all over the place, so before we set off, let&rsquo;s scan
-the territory charted by previous language implementers. It will help us
-understand where we are going and the alternate routes others have taken.</p>
-<p>First, let me establish a shorthand. Much of this book is about a language&rsquo;s
-<em>implementation</em>, which is distinct from the <em>language itself</em> in some sort of
-Platonic ideal form. Things like &ldquo;stack&rdquo;, &ldquo;bytecode&rdquo;, and &ldquo;recursive descent&rdquo;,
-are nuts and bolts one particular implementation might use. From the user&rsquo;s
-perspective, as long as the resulting contraption faithfully follows the
-language&rsquo;s specification, it&rsquo;s all implementation detail.</p>
-<p>We&rsquo;re going to spend a lot of time on those details, so if I have to write
-&ldquo;language <em>implementation</em>&rdquo; every single time I mention them, I&rsquo;ll wear my
-fingers off. Instead, I&rsquo;ll use &ldquo;language&rdquo; to refer to either a language or an
-implementation of it, or both, unless the distinction matters.</p>
-<h2><a href="#the-parts-of-a-language" id="the-parts-of-a-language"><small>2&#8202;.&#8202;1</small>The Parts of a Language</a></h2>
-<p>Engineers have been building programming languages since the Dark Ages of
-computing. As soon as we could talk to computers, we discovered doing so was too
-hard, and we enlisted their help. I find it fascinating that even though today&rsquo;s
-machines are literally a million times faster and have orders of magnitude more
-storage, the way we build programming languages is virtually unchanged.</p>
-<p>Though the area explored by language designers is vast, the trails they&rsquo;ve
-carved through it are <span name="dead">few</span>. Not every language takes the
-exact same path<span class="em">&mdash;</span>some take a shortcut or two<span class="em">&mdash;</span>but otherwise they are
-reassuringly similar, from Rear Admiral Grace Hopper&rsquo;s first COBOL compiler all
-the way to some hot, new, transpile-to-JavaScript language whose &ldquo;documentation&rdquo;
-consists entirely of a single, poorly edited README in a Git repository
-somewhere.</p>
+<p>我们不想到处流浪，所以在我们出发之前，让我们先仔细观察一下以前的编程语言实现者所绘制的领域地图，它将帮助我们了解我们要去哪里以及其他人采取的备选路线.</p>
+<p>首先，我先做个简单说明。本书的大部分内容都是关于编程语言<em>实现</em>的，与<em>编程语言本身</em>这种柏拉图式的理想形式有所不同。
+比如“栈”，“字节码”和“递归下降”是一种特定实现使用的基本组件。从用户的角度来说，只要最终产生的装置能够忠实地遵循编程语言的规范，它内部的都是实现细节。</p>
+<p>我们将会花很多时间在这些细节上，所以如果我每次提及的时候都写“编程语言<em>实现</em>”，我的手指都会被磨掉。
+相反，除非有重要的区别，否则我将使用“编程语言”来指代一种编程语言或该编程语言的一种实现，或两者皆有。</p>
+<h2><a href="#编程语言的组成部分" id="编程语言的组成部分"><small>2&#8202;.&#8202;1</small>编程语言的组成部分</a></h2>
+<p>自计算机的黑暗时代以来，工程师们就一直在构建编程语言。 
+一旦我们可以操作计算机时，我们发现构建编程语言太难了，所以我们应该感谢他们的帮助。
+我觉得很有趣的是，即使今天的机器确实快了一百万倍，并且拥有更多数量级的存储空间，我们构建编程语言的方式几乎没有改变。</p>
+<p>尽管编程语言设计师所探索的领域非常辽阔，但他们实现语言的路径却<span name="dead">很少</span>。
+并非每种语言都采用完全相同的路径<span class="em">&mdash;</span>有些会采用一种或两种捷径<span class="em">&mdash;</span>但另外的都很相似。</p>
+<p>从海军少将格蕾丝·赫柏实现的第一个COBOL编译器开始，一直到一些热门的，新的，转义为JavaScript的众多语言，其“文档”完全由某个Git仓库中的一个编辑不佳的README组成。</p>
 <aside name="dead">
-<p>There are certainly dead ends, sad little cul-de-sacs of CS papers with zero
-citations and now-forgotten optimizations that only made sense when memory was
-measured in individual bytes.</p>
+<p>那里确实有绝径，引用数为零的悲惨小众CS论文以及如今被遗忘的优化方法，这些优化方法只有在以字节为单位来衡量内存时才有意义。</p>
 </aside>
-<p>I visualize the network of paths an implementation may choose as climbing a
-mountain. You start off at the bottom with the program as raw source text,
-literally just a string of characters. Each phase analyzes the program and
-transforms it to some higher-level representation where the semantics<span class="em">&mdash;</span>what
-the author wants the computer to do<span class="em">&mdash;</span>become more apparent.</p>
-<p>Eventually we reach the peak. We have a bird&rsquo;s-eye view of the user&rsquo;s program
-and can see what their code <em>means</em>. We begin our descent down the other side of
-the mountain. We transform this highest-level representation down to
-successively lower-level forms to get closer and closer to something we know how
-to make the CPU actually execute.</p><img src="image/a-map-of-the-territory/mountain.png" alt="The branching paths a language may take over the mountain." class="wide" />
-<p>Let&rsquo;s trace through each of those trails and points of interest. Our journey
-begins on the left with the bare text of the user&rsquo;s source code:</p><img src="image/a-map-of-the-territory/string.png" alt="var average = (min + max) / 2;" />
+<p>我形象化的把实现一个编程语言可能选择的路径网络类比为爬山。
+你从山底开始，这时程序只是原始的源文本，实际上只是一串字符。
+每个阶段都会对程序进行分析，并将其转换为更高层次的表示形式，将使语义（作者想让计算机做什么）更加明确。</p>
+<p>最终我们达到山顶，我们有了用户程序的全局视角，明白了他们代码的<em>含义</em>。我们开始下山的另一边，
+我们将这个最高层次表示，逐步转换为底层形式，越来越接近机器指令即我们知道的如何让CPU真正执行的指令。</p><img src="image/a-map-of-the-territory/mountain.png" alt="语言实现可能采用的爬山路径" class="wide" />
+<p>让我们追踪每一条路径和兴趣点。 我们的旅程从左侧的用户源代码的纯文本开始：</p><img src="image/a-map-of-the-territory/string.png" alt="var average = (min + max) / 2;" />
 <h3><a href="#scanning" id="scanning"><small>2&#8202;.&#8202;1&#8202;.&#8202;1</small>Scanning</a></h3>
 <p>The first step is <strong>scanning</strong>, also known as <strong>lexing</strong>, or (if you&rsquo;re trying
 to impress someone) <strong>lexical analysis</strong>. They all mean pretty much the same

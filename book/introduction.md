@@ -314,7 +314,11 @@ good at,
 
 ## 挑战
 
-1. 在我编写的这个[小系统][repo]中，至少有六种领域特定语言，它们是什么？
+1. 在我编写的这个[小系统][repo]中，至少有六种领域特定语言，<span name="dsl">它们</span>是什么？
+
+<aside name="dsl">
+HTML,C,Dart,Java,SCSS,CSS
+</aside>
 
 2. 使用Java编写并运行一个“Hello, world!”程序，设置好随便一个makefiles或IDE项目使其正常工作。如果你有调试器，请先熟悉一下，并在程序运行时对代码逐步调试。
 
