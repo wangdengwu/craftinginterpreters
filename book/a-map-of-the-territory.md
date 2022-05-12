@@ -41,63 +41,41 @@
 
 <img src="image/a-map-of-the-territory/string.png" alt="var average = (min + max) / 2;" />
 
-### Scanning
+### 扫描
 
-The first step is **scanning**, also known as **lexing**, or (if you're trying
-to impress someone) **lexical analysis**. They all mean pretty much the same
-thing. I like "lexing" because it sounds like something an evil supervillain
-would do, but I'll use "scanning" because it seems to be marginally more
-commonplace.
+第一步是**扫描**，也就是所谓的**词法**，或者叫(如果你想给某人留下深刻印象)**词法分析**，它们差不多是一个意思。
+我喜欢“词法”因为它听起来像一个邪恶的超级恶棍会做的事情，但是我还是会用“扫描”，因为它看起来更常见一些。
 
-A **scanner** (or **lexer**) takes in the linear stream of characters and chunks
-them together into a series of something more akin to <span
-name="word">"words"</span>. In programming languages, each of these words is
-called a **token**. Some tokens are single characters, like `(` and `,`. Others
-may be several characters long, like numbers (`123`), string literals (`"hi!"`),
-and identifiers (`min`).
+**扫描**(或**词法**)接受线性字符流并将它们组合成一系列更类似于<span name="word">“单词”</span>的东西。
+在编程语言中，每一个这样的单词叫做“词法单元”，有一些词法单元是单个字符，比如`(`和`,`另外的可能由多个字符组成，比如数字(`123`)，字符串(`"hi!"`)，以及标识符(`min`)。 
 
 <aside name="word">
 
-"Lexical" comes from the Greek root "lex", meaning "word".
+"Lexical"来自希腊语词根“lex”，意思是“单词”。
 
 </aside>
 
-Some characters in a source file don't actually mean anything. Whitespace is
-often insignificant, and comments, by definition, are ignored by the language.
-The scanner usually discards these, leaving a clean sequence of meaningful
-tokens.
+Some characters in a source file don't actually mean anything.
+有一些字符在源文件中其实是没有含义的，空格就可以忽略，还有注释，根据语言规范，这些都将被忽略。扫描通常都无视这些，只留下干净有序的词法单元。
 
 <img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
 
-### Parsing
+### 语法分析
 
-The next step is **parsing**. This is where our syntax gets a **grammar** -- the
-ability to compose larger expressions and statements out of smaller parts. Did
-you ever diagram sentences in English class? If so, you've done what a parser
-does, except that English has thousands and thousands of "keywords" and an
-overflowing cornucopia of ambiguity. Programming languages are much simpler.
+下一步是**语法分析**。这就是我们从句法中得到**文法**的地方-- 用较小的部分组成较大的表达式和语句的能力。
+你有没有在英语课上图解过句子？如果有，那就是词法分析要做的。除了英语拥有成千上万的“关键词”和大量的歧义，编程语言则简单的多。
 
-A **parser** takes the flat sequence of tokens and builds a tree structure that
-mirrors the nested nature of the grammar. These trees have a couple of different
-names -- **parse tree** or **abstract syntax tree** -- depending on how
-close to the bare syntactic structure of the source language they are. In
-practice, language hackers usually call them **syntax trees**, **ASTs**, or
-often just **trees**.
+词法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
+这些语法树还有另外两个名字--**解析树**或**抽象语法树**--取决于它们与源语言的基本句法结构的接近程度。在实践中，编程语言人员通常叫它们**语法树**，**ASTs**，或者直接叫**树**。
 
 <img src="image/a-map-of-the-territory/ast.png" alt="An abstract syntax tree." />
 
-Parsing has a long, rich history in computer science that is closely tied to the
-artificial intelligence community. Many of the techniques used today to parse
-programming languages were originally conceived to parse *human* languages by AI
-researchers who were trying to get computers to talk to us.
+语法分析器在计算机科学中有着悠久而丰富的历史，它与人工智能界有着密切的联系。
+很多今天使用的分析编程语言的技术，最初都来源于分析人类语言，其研究者构建的目的是，试着让计算机和我们对话。
 
-It turns out human languages were too messy for the rigid grammars those parsers
-could handle, but they were a perfect fit for the simpler artificial grammars of
-programming languages. Alas, we flawed humans still manage to use those simple
-grammars incorrectly, so the parser's job also includes letting us know when we
-do by reporting **syntax errors**.
+事实证明，对于那些解析器可以处理的严格语法来说，人类语言太混乱了, 但它们非常适合更简单的编程语言人工语法。唉，我们这些有缺陷的人类依然无法完全正确的使用这些简单的语法，所以语法分析的任务还包括当我们做错时让我们知道**语法错误**。
 
-### Static analysis
+### 静态分析
 
 The first two stages are pretty similar across all implementations. Now, the
 individual characteristics of each language start coming into play. At this

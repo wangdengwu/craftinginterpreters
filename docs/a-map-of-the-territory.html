@@ -109,47 +109,25 @@
 <p>最终我们达到山顶，我们有了用户程序的全局视角，明白了他们代码的<em>含义</em>。我们开始下山的另一边，
 我们将这个最高层次表示，逐步转换为底层形式，越来越接近机器指令即我们知道的如何让CPU真正执行的指令。</p><img src="image/a-map-of-the-territory/mountain.png" alt="语言实现可能采用的爬山路径" class="wide" />
 <p>让我们追踪每一条路径和兴趣点。 我们的旅程从左侧的用户源代码的纯文本开始：</p><img src="image/a-map-of-the-territory/string.png" alt="var average = (min + max) / 2;" />
-<h3><a href="#scanning" id="scanning"><small>2&#8202;.&#8202;1&#8202;.&#8202;1</small>Scanning</a></h3>
-<p>The first step is <strong>scanning</strong>, also known as <strong>lexing</strong>, or (if you&rsquo;re trying
-to impress someone) <strong>lexical analysis</strong>. They all mean pretty much the same
-thing. I like &ldquo;lexing&rdquo; because it sounds like something an evil supervillain
-would do, but I&rsquo;ll use &ldquo;scanning&rdquo; because it seems to be marginally more
-commonplace.</p>
-<p>A <strong>scanner</strong> (or <strong>lexer</strong>) takes in the linear stream of characters and chunks
-them together into a series of something more akin to <span
-name="word">&ldquo;words&rdquo;</span>. In programming languages, each of these words is
-called a <strong>token</strong>. Some tokens are single characters, like <code>(</code> and <code>,</code>. Others
-may be several characters long, like numbers (<code>123</code>), string literals (<code>"hi!"</code>),
-and identifiers (<code>min</code>).</p>
+<h3><a href="#扫描" id="扫描"><small>2&#8202;.&#8202;1&#8202;.&#8202;1</small>扫描</a></h3>
+<p>第一步是<strong>扫描</strong>，也就是所谓的<strong>词法</strong>，或者叫(如果你想给某人留下深刻印象)<strong>词法分析</strong>，它们差不多是一个意思。
+我喜欢“词法”因为它听起来像一个邪恶的超级恶棍会做的事情，但是我还是会用“扫描”，因为它看起来更常见一些。</p>
+<p><strong>扫描</strong>(或<strong>词法</strong>)接受线性字符流并将它们组合成一系列更类似于<span name="word">“单词”</span>的东西。
+在编程语言中，每一个这样的单词叫做“词法单元”，有一些词法单元是单个字符，比如<code>(</code>和<code>,</code>另外的可能由多个字符组成，比如数字(<code>123</code>)，字符串(<code>"hi!"</code>)，以及标识符(<code>min</code>)。</p>
 <aside name="word">
-<p>&ldquo;Lexical&rdquo; comes from the Greek root &ldquo;lex&rdquo;, meaning &ldquo;word&rdquo;.</p>
+<p>&ldquo;Lexical&rdquo;来自希腊语词根“lex”，意思是“单词”。</p>
 </aside>
-<p>Some characters in a source file don&rsquo;t actually mean anything. Whitespace is
-often insignificant, and comments, by definition, are ignored by the language.
-The scanner usually discards these, leaving a clean sequence of meaningful
-tokens.</p><img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
-<h3><a href="#parsing" id="parsing"><small>2&#8202;.&#8202;1&#8202;.&#8202;2</small>Parsing</a></h3>
-<p>The next step is <strong>parsing</strong>. This is where our syntax gets a <strong>grammar</strong><span class="em">&mdash;</span>the
-ability to compose larger expressions and statements out of smaller parts. Did
-you ever diagram sentences in English class? If so, you&rsquo;ve done what a parser
-does, except that English has thousands and thousands of &ldquo;keywords&rdquo; and an
-overflowing cornucopia of ambiguity. Programming languages are much simpler.</p>
-<p>A <strong>parser</strong> takes the flat sequence of tokens and builds a tree structure that
-mirrors the nested nature of the grammar. These trees have a couple of different
-names<span class="em">&mdash;</span><strong>parse tree</strong> or <strong>abstract syntax tree</strong><span class="em">&mdash;</span>depending on how
-close to the bare syntactic structure of the source language they are. In
-practice, language hackers usually call them <strong>syntax trees</strong>, <strong>ASTs</strong>, or
-often just <strong>trees</strong>.</p><img src="image/a-map-of-the-territory/ast.png" alt="An abstract syntax tree." />
-<p>Parsing has a long, rich history in computer science that is closely tied to the
-artificial intelligence community. Many of the techniques used today to parse
-programming languages were originally conceived to parse <em>human</em> languages by AI
-researchers who were trying to get computers to talk to us.</p>
-<p>It turns out human languages were too messy for the rigid grammars those parsers
-could handle, but they were a perfect fit for the simpler artificial grammars of
-programming languages. Alas, we flawed humans still manage to use those simple
-grammars incorrectly, so the parser&rsquo;s job also includes letting us know when we
-do by reporting <strong>syntax errors</strong>.</p>
-<h3><a href="#static-analysis" id="static-analysis"><small>2&#8202;.&#8202;1&#8202;.&#8202;3</small>Static analysis</a></h3>
+<p>Some characters in a source file don&rsquo;t actually mean anything.
+有一些字符在源文件中其实是没有含义的，空格就可以忽略，还有注释，根据语言规范，这些都将被忽略。扫描通常都无视这些，只留下干净有序的词法单元。</p><img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
+<h3><a href="#语法分析" id="语法分析"><small>2&#8202;.&#8202;1&#8202;.&#8202;2</small>语法分析</a></h3>
+<p>下一步是<strong>语法分析</strong>。这就是我们从句法中得到<strong>文法</strong>的地方-- 用较小的部分组成较大的表达式和语句的能力。
+你有没有在英语课上图解过句子？如果有，那就是词法分析要做的。除了英语拥有成千上万的“关键词”和大量的歧义，编程语言则简单的多。</p>
+<p>词法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
+这些语法树还有另外两个名字--<strong>解析树</strong>或<strong>抽象语法树</strong>--取决于它们与源语言的基本句法结构的接近程度。在实践中，编程语言人员通常叫它们<strong>语法树</strong>，<strong>ASTs</strong>，或者直接叫<strong>树</strong>。</p><img src="image/a-map-of-the-territory/ast.png" alt="An abstract syntax tree." />
+<p>语法分析器在计算机科学中有着悠久而丰富的历史，它与人工智能界有着密切的联系。
+很多今天使用的分析编程语言的技术，最初都来源于分析人类语言，其研究者构建的目的是，试着让计算机和我们对话。</p>
+<p>事实证明，对于那些解析器可以处理的严格语法来说，人类语言太混乱了, 但它们非常适合更简单的编程语言人工语法。唉，我们这些有缺陷的人类依然无法完全正确的使用这些简单的语法，所以语法分析的任务还包括当我们做错时让我们知道<strong>语法错误</strong>。</p>
+<h3><a href="#静态分析" id="静态分析"><small>2&#8202;.&#8202;1&#8202;.&#8202;3</small>静态分析</a></h3>
 <p>The first two stages are pretty similar across all implementations. Now, the
 individual characteristics of each language start coming into play. At this
 point, we know the syntactic structure of the code<span class="em">&mdash;</span>things like which

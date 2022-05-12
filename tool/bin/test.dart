@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
+import 'package:glob/list_local_fs.dart';
 
 import 'package:tool/src/term.dart' as term;
 
