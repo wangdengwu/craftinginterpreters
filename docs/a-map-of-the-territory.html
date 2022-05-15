@@ -128,56 +128,34 @@
 很多今天使用的分析编程语言的技术，最初都来源于分析人类语言，其研究者构建的目的是，试着让计算机和我们对话。</p>
 <p>事实证明，对于那些解析器可以处理的严格语法来说，人类语言太混乱了, 但它们非常适合更简单的编程语言人工语法。唉，我们这些有缺陷的人类依然无法完全正确的使用这些简单的语法，所以语法分析的任务还包括当我们做错时让我们知道<strong>语法错误</strong>。</p>
 <h3><a href="#静态分析" id="静态分析"><small>2&#8202;.&#8202;1&#8202;.&#8202;3</small>静态分析</a></h3>
-<p>The first two stages are pretty similar across all implementations. Now, the
-individual characteristics of each language start coming into play. At this
-point, we know the syntactic structure of the code<span class="em">&mdash;</span>things like which
-expressions are nested in which<span class="em">&mdash;</span>but we don&rsquo;t know much more than that.</p>
-<p>In an expression like <code>a + b</code>, we know we are adding <code>a</code> and <code>b</code>, but we don&rsquo;t
-know what those names refer to. Are they local variables? Global? Where are they
-defined?</p>
-<p>The first bit of analysis that most languages do is called <strong>binding</strong> or
-<strong>resolution</strong>. For each <strong>identifier</strong>, we find out where that name is defined
-and wire the two together. This is where <strong>scope</strong> comes into play<span class="em">&mdash;</span>the region
-of source code where a certain name can be used to refer to a certain
-declaration.</p>
-<p>If the language is <span name="type">statically typed</span>, this is when we
-type check. Once we know where <code>a</code> and <code>b</code> are declared, we can also figure out
-their types. Then if those types don&rsquo;t support being added to each other, we
-report a <strong>type error</strong>.</p>
+<p>在所有实现中，前两个阶段都非常相似。现在，每种语言的个体特征开始发挥作用。
+至此，我们知道了代码的语法结构<span class="em">&mdash;</span>诸如哪些表达式嵌套在其中之类的东西<span class="em">&mdash;</span>但是我们知道的也就仅限于此了。</p>
+<p>比如在像<code>a + b</code>这样的表达式中，我们知道我们要把<code>a</code>和<code>b</code>相加，但是我们不知道这些名字指向哪里，它们是局部变量？全局变量？它们在哪定义的。</p>
+<p>大多数语言做的第一点分析叫<strong>绑定</strong>或<strong>解析</strong>。对于每一个<strong>标识符</strong>，我们找出变量名是在哪定义的，并关联起来，
+这就是<strong>作用域</strong>的作用<span class="em">&mdash;</span>在一块代码区域中，一个确定的命名被用来指向一个确定的声明。</p>
+<p>如果语言是<span name="type">静态类型的</span>,我们就可以做类型检查，一旦我们知道<code>a</code>和<code>b</code>在哪里声明的，我们就可以确定它们的类型。
+然后如果这些类型不支持互相累加操作，我们就会报告一个<strong>类型错误</strong>。</p>
 <aside name="type">
-<p>The language we&rsquo;ll build in this book is dynamically typed, so it will do its
-type checking later, at runtime.</p>
+<p>我们在本书中构建的编程语言是动态类型的，因此将在稍后的运行时中进行类型检查。</p>
 </aside>
-<p>Take a deep breath. We have attained the summit of the mountain and a sweeping
-view of the user&rsquo;s program. All this semantic insight that is visible to us from
-analysis needs to be stored somewhere. There are a few places we can squirrel it
-away:</p>
+<p>深吸一口气，我们已经到达了山顶，并对用户的程序有了全面的了解。
+所有这些从语义分析中得到的语义信息都需要存储在某个地方。我们可以把它藏在几个地方：</p>
 <ul>
 <li>
-<p>Often, it gets stored right back as <strong>attributes</strong> on the syntax tree
-itself<span class="em">&mdash;</span>extra fields in the nodes that aren&rsquo;t initialized during parsing
-but get filled in later.</p>
+<p>通常，它会被直接存储在语法树本身的<strong>属性</strong>中<span class="em">&mdash;</span>在解析时没有初始化的节点的额外字段，但在稍后会被填充。</p>
 </li>
 <li>
-<p>Other times, we may store data in a lookup table off to the side. Typically,
-the keys to this table are identifiers<span class="em">&mdash;</span>names of variables and declarations.
-In that case, we call it a <strong>symbol table</strong> and the values it associates with
-each key tell us what that identifier refers to.</p>
+<p>有时，我们可能会将数据存储在外部的查找表中。通常，该表的关键字是标识符，即变量和声明的名称。
+在这种情况下，我们称其为<strong>符号表</strong>并且其中与每个键关联的值告诉我们该标识符所指的是什么。</p>
 </li>
 <li>
-<p>The most powerful bookkeeping tool is to transform the tree into an entirely
-new data structure that more directly expresses the semantics of the code.
-That&rsquo;s the next section.</p>
+<p>最强大的记录工具是将树转化为一个全新的数据结构，更直接地表达代码的语义。这是下一节的内容。</p>
 </li>
 </ul>
-<p>Everything up to this point is considered the <strong>front end</strong> of the
-implementation. You might guess everything after this is the <strong>back end</strong>, but
-no. Back in the days of yore when &ldquo;front end&rdquo; and &ldquo;back end&rdquo; were coined,
-compilers were much simpler. Later researchers invented new phases to stuff
-between the two halves. Rather than discard the old terms, William Wulf and
-company lumped those new phases into the charming but spatially paradoxical name
-<strong>middle end</strong>.</p>
-<h3><a href="#intermediate-representations" id="intermediate-representations"><small>2&#8202;.&#8202;1&#8202;.&#8202;4</small>Intermediate representations</a></h3>
+<p>到目前为止，所有内容都被视为实现的<strong>前端</strong>，你可能会猜至此以后都是<strong>后端</strong>，其实不然。
+在过去的年代，当“前端”和“后端”被创造出来时，编译器要简单得多。后来，研究人员在前端和后端之间引入了新阶段。
+遵循旧的习惯, 威廉·沃尔夫及其公司将新的阶段命名为<strong>中端</strong>。</p>
+<h3><a href="#中间表示" id="中间表示"><small>2&#8202;.&#8202;1&#8202;.&#8202;4</small>中间表示</a></h3>
 <p>You can think of the compiler as a pipeline where each stage&rsquo;s job is to
 organize the data representing the user&rsquo;s code in a way that makes the next
 stage simpler to implement. The front end of the pipeline is specific to the
@@ -209,7 +187,7 @@ like the one for 68k then take those IRs and produce native code.</p>
 </aside>
 <p>There&rsquo;s another big reason we might want to transform the code into a form that
 makes the semantics more apparent<span class="ellipse">&thinsp;.&thinsp;.&thinsp;.&nbsp;</span></p>
-<h3><a href="#optimization" id="optimization"><small>2&#8202;.&#8202;1&#8202;.&#8202;5</small>Optimization</a></h3>
+<h3><a href="#优化" id="优化"><small>2&#8202;.&#8202;1&#8202;.&#8202;5</small>优化</a></h3>
 <p>Once we understand what the user&rsquo;s program means, we are free to swap it out
 with a different program that has the <em>same semantics</em> but implements them more
 efficiently<span class="em">&mdash;</span>we can <strong>optimize</strong> it.</p>
@@ -235,7 +213,7 @@ started are &ldquo;constant propagation&rdquo;, &ldquo;common subexpression elim
 invariant code motion&rdquo;, &ldquo;global value numbering&rdquo;, &ldquo;strength reduction&rdquo;, &ldquo;scalar
 replacement of aggregates&rdquo;, &ldquo;dead code elimination&rdquo;, and &ldquo;loop unrolling&rdquo;.</p>
 </aside>
-<h3><a href="#code-generation" id="code-generation"><small>2&#8202;.&#8202;1&#8202;.&#8202;6</small>Code generation</a></h3>
+<h3><a href="#代码生成" id="代码生成"><small>2&#8202;.&#8202;1&#8202;.&#8202;6</small>代码生成</a></h3>
 <p>We have applied all of the optimizations we can think of to the user&rsquo;s program.
 The last step is converting it to a form the machine can actually run. In other
 words, <strong>generating code</strong> (or <strong>code gen</strong>), where &ldquo;code&rdquo; here usually refers to
@@ -272,7 +250,7 @@ single byte long.</p>
 language&rsquo;s semantics, and not be so tied to the peculiarities of any one
 computer architecture and its accumulated historical cruft. You can think of it
 like a dense, binary encoding of the language&rsquo;s low-level operations.</p>
-<h3><a href="#virtual-machine" id="virtual-machine"><small>2&#8202;.&#8202;1&#8202;.&#8202;7</small>Virtual machine</a></h3>
+<h3><a href="#虚拟机" id="虚拟机"><small>2&#8202;.&#8202;1&#8202;.&#8202;7</small>虚拟机</a></h3>
 <p>If your compiler produces bytecode, your work isn&rsquo;t over once that&rsquo;s done. Since
 there is no chip that speaks that bytecode, it&rsquo;s your job to translate. Again,
 you have two options. You can write a little mini-compiler for each target
@@ -307,7 +285,7 @@ computers for each user.</p>
 <p>The kind of VMs we&rsquo;ll talk about in this book are <strong>language virtual machines</strong>
 or <strong>process virtual machines</strong> if you want to be unambiguous.</p>
 </aside>
-<h3><a href="#runtime" id="runtime"><small>2&#8202;.&#8202;1&#8202;.&#8202;8</small>Runtime</a></h3>
+<h3><a href="#运行时" id="运行时"><small>2&#8202;.&#8202;1&#8202;.&#8202;8</small>运行时</a></h3>
 <p>We have finally hammered the user&rsquo;s program into a form that we can execute. The
 last step is running it. If we compiled it to machine code, we simply tell the
 operating system to load the executable and off it goes. If we compiled it to

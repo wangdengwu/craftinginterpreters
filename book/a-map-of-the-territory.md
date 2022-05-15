@@ -77,60 +77,38 @@ Some characters in a source file don't actually mean anything.
 
 ### 静态分析
 
-The first two stages are pretty similar across all implementations. Now, the
-individual characteristics of each language start coming into play. At this
-point, we know the syntactic structure of the code -- things like which
-expressions are nested in which -- but we don't know much more than that.
+在所有实现中，前两个阶段都非常相似。现在，每种语言的个体特征开始发挥作用。
+至此，我们知道了代码的语法结构 -- 诸如哪些表达式嵌套在其中之类的东西 -- 但是我们知道的也就仅限于此了。
 
-In an expression like `a + b`, we know we are adding `a` and `b`, but we don't
-know what those names refer to. Are they local variables? Global? Where are they
-defined?
+比如在像`a + b`这样的表达式中，我们知道我们要把`a`和`b`相加，但是我们不知道这些名字指向哪里，它们是局部变量？全局变量？它们在哪定义的。
 
-The first bit of analysis that most languages do is called **binding** or
-**resolution**. For each **identifier**, we find out where that name is defined
-and wire the two together. This is where **scope** comes into play -- the region
-of source code where a certain name can be used to refer to a certain
-declaration.
+大多数语言做的第一点分析叫**绑定**或**解析**。对于每一个**标识符**，我们找出变量名是在哪定义的，并关联起来，
+这就是**作用域**的作用 -- 在一块代码区域中，一个确定的命名被用来指向一个确定的声明。
 
-If the language is <span name="type">statically typed</span>, this is when we
-type check. Once we know where `a` and `b` are declared, we can also figure out
-their types. Then if those types don't support being added to each other, we
-report a **type error**.
+如果语言是<span name="type">静态类型的</span>,我们就可以做类型检查，一旦我们知道`a`和`b`在哪里声明的，我们就可以确定它们的类型。
+然后如果这些类型不支持互相累加操作，我们就会报告一个**类型错误**。
 
 <aside name="type">
 
-The language we'll build in this book is dynamically typed, so it will do its
-type checking later, at runtime.
+我们在本书中构建的编程语言是动态类型的，因此将在稍后的运行时中进行类型检查。
 
 </aside>
 
-Take a deep breath. We have attained the summit of the mountain and a sweeping
-view of the user's program. All this semantic insight that is visible to us from
-analysis needs to be stored somewhere. There are a few places we can squirrel it
-away:
+深吸一口气，我们已经到达了山顶，并对用户的程序有了全面的了解。
+所有这些从语义分析中得到的语义信息都需要存储在某个地方。我们可以把它藏在几个地方：
 
-* Often, it gets stored right back as **attributes** on the syntax tree
-  itself -- extra fields in the nodes that aren't initialized during parsing
-  but get filled in later.
+* 通常，它会被直接存储在语法树本身的**属性**中 -- 在解析时没有初始化的节点的额外字段，但在稍后会被填充。
 
-* Other times, we may store data in a lookup table off to the side. Typically,
-  the keys to this table are identifiers -- names of variables and declarations.
-  In that case, we call it a **symbol table** and the values it associates with
-  each key tell us what that identifier refers to.
+* 有时，我们可能会将数据存储在外部的查找表中。通常，该表的关键字是标识符，即变量和声明的名称。
+  在这种情况下，我们称其为**符号表**并且其中与每个键关联的值告诉我们该标识符所指的是什么。
 
-* The most powerful bookkeeping tool is to transform the tree into an entirely
-  new data structure that more directly expresses the semantics of the code.
-  That's the next section.
+* 最强大的记录工具是将树转化为一个全新的数据结构，更直接地表达代码的语义。这是下一节的内容。
 
-Everything up to this point is considered the **front end** of the
-implementation. You might guess everything after this is the **back end**, but
-no. Back in the days of yore when "front end" and "back end" were coined,
-compilers were much simpler. Later researchers invented new phases to stuff
-between the two halves. Rather than discard the old terms, William Wulf and
-company lumped those new phases into the charming but spatially paradoxical name
-**middle end**.
+到目前为止，所有内容都被视为实现的**前端**，你可能会猜至此以后都是**后端**，其实不然。
+在过去的年代，当“前端”和“后端”被创造出来时，编译器要简单得多。后来，研究人员在前端和后端之间引入了新阶段。
+遵循旧的习惯, 威廉·沃尔夫及其公司将新的阶段命名为**中端**。
 
-### Intermediate representations
+### 中间表示
 
 You can think of the compiler as a pipeline where each stage's job is to
 organize the data representing the user's code in a way that makes the next
@@ -178,7 +156,7 @@ like the one for 68k then take those IRs and produce native code.
 There's another big reason we might want to transform the code into a form that
 makes the semantics more apparent...
 
-### Optimization
+### 优化
 
 Once we understand what the user's program means, we are free to swap it out
 with a different program that has the *same semantics* but implements them more
@@ -217,7 +195,7 @@ replacement of aggregates", "dead code elimination", and "loop unrolling".
 
 </aside>
 
-### Code generation
+### 代码生成
 
 We have applied all of the optimizations we can think of to the user's program.
 The last step is converting it to a form the machine can actually run. In other
@@ -269,7 +247,7 @@ language's semantics, and not be so tied to the peculiarities of any one
 computer architecture and its accumulated historical cruft. You can think of it
 like a dense, binary encoding of the language's low-level operations.
 
-### Virtual machine
+### 虚拟机
 
 If your compiler produces bytecode, your work isn't over once that's done. Since
 there is no chip that speaks that bytecode, it's your job to translate. Again,
@@ -315,7 +293,7 @@ or **process virtual machines** if you want to be unambiguous.
 
 </aside>
 
-### Runtime
+### 运行时
 
 We have finally hammered the user's program into a form that we can execute. The
 last step is running it. If we compiled it to machine code, we simply tell the
