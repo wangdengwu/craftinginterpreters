@@ -110,42 +110,24 @@ Some characters in a source file don't actually mean anything.
 
 ### 中间表示
 
-You can think of the compiler as a pipeline where each stage's job is to
-organize the data representing the user's code in a way that makes the next
-stage simpler to implement. The front end of the pipeline is specific to the
-source language the program is written in. The back end is concerned with the
-final architecture where the program will run.
+你可以把编译器看成是一条流水线，每个阶段的工作是把代表用户代码的数据组织起来，使下一阶段的实现更加简单。流水线的前端是针对程序所使用的源语言编写的。后端关注的是程序运行的最终架构
 
-In the middle, the code may be stored in some <span name="ir">**intermediate
-representation**</span> (**IR**) that isn't tightly tied to either the source or
-destination forms (hence "intermediate"). Instead, the IR acts as an interface
-between these two languages.
+在中间阶段，代码可能被编译为一些<span name="ir">**中间表示**</span> (**IR**)，
+其和源代码或者最终结果之间都没有紧密关系（所以叫中间），相反，IR扮演了这2种语言之间桥梁的角色。
 
 <aside name="ir">
 
-There are a few well-established styles of IRs out there. Hit your search engine
-of choice and look for "control flow graph", "static single-assignment",
-"continuation-passing style", and "three-address code".
+有一些成熟的 IR 风格，打开你选择的搜索引擎并查找“控制流图”、“静态单一赋值”、“继续传递样式”和“三地址代码”。
 
 </aside>
 
-This lets you support multiple source languages and target platforms with less
-effort. Say you want to implement Pascal, C, and Fortran compilers, and you want
-to target x86, ARM, and, I dunno, SPARC. Normally, that means you're signing up
-to write *nine* full compilers: Pascal&rarr;x86, C&rarr;ARM, and every other
-combination.
+这可以让你更轻松地支持多种源语言和多种目标平台。假设你想实现Pascal、C和Fortran编译器，并且你想针对x86、ARM，还有SPARC体系结构开发编译器。通常情况下，这意味着你需要写*九*个完整的编译器： Pascal&rarr;x86, C&rarr;ARM，以及其他各种组合。
 
-A <span name="gcc">shared</span> intermediate representation reduces that
-dramatically. You write *one* front end for each source language that produces
-the IR. Then *one* back end for each target architecture. Now you can mix and
-match those to get every combination.
+一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写*一个*前端*，生成IR中间表示，然后*一个*后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。
 
 <aside name="gcc">
 
-If you've ever wondered how [GCC][] supports so many crazy languages and
-architectures, like Modula-3 on Motorola 68k, now you know. Language front ends
-target one of a handful of IRs, mainly [GIMPLE][] and [RTL][]. Target back ends
-like the one for 68k then take those IRs and produce native code.
+如果你曾经好奇[GCC][]如何支持这么多疯狂的编程语言和体系结构，例如Motorola 68k上的Modula-3，现在你就明白了。 编程语言前端针对的是少数IR，主要是[GIMPLE][]和[RTL][].目标后端如68k，会接受这些IR并生成机器代码。
 
 [gcc]: https://en.wikipedia.org/wiki/GNU_Compiler_Collection
 [gimple]: https://gcc.gnu.org/onlinedocs/gccint/GIMPLE.html
@@ -153,8 +135,7 @@ like the one for 68k then take those IRs and produce native code.
 
 </aside>
 
-There's another big reason we might want to transform the code into a form that
-makes the semantics more apparent...
+还有一个重要的原因是，我们可能希望将代码转化为某种形式，使语义更加明确...。
 
 ### 优化
 

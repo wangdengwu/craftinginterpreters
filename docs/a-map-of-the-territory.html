@@ -156,37 +156,18 @@
 在过去的年代，当“前端”和“后端”被创造出来时，编译器要简单得多。后来，研究人员在前端和后端之间引入了新阶段。
 遵循旧的习惯, 威廉·沃尔夫及其公司将新的阶段命名为<strong>中端</strong>。</p>
 <h3><a href="#中间表示" id="中间表示"><small>2&#8202;.&#8202;1&#8202;.&#8202;4</small>中间表示</a></h3>
-<p>You can think of the compiler as a pipeline where each stage&rsquo;s job is to
-organize the data representing the user&rsquo;s code in a way that makes the next
-stage simpler to implement. The front end of the pipeline is specific to the
-source language the program is written in. The back end is concerned with the
-final architecture where the program will run.</p>
-<p>In the middle, the code may be stored in some <span name="ir"><strong>intermediate
-representation</strong></span> (<strong>IR</strong>) that isn&rsquo;t tightly tied to either the source or
-destination forms (hence &ldquo;intermediate&rdquo;). Instead, the IR acts as an interface
-between these two languages.</p>
+<p>你可以把编译器看成是一条流水线，每个阶段的工作是把代表用户代码的数据组织起来，使下一阶段的实现更加简单。流水线的前端是针对程序所使用的源语言编写的。后端关注的是程序运行的最终架构</p>
+<p>在中间阶段，代码可能被编译为一些<span name="ir"><strong>中间表示</strong></span> (<strong>IR</strong>)，
+其和源代码或者最终结果之间都没有紧密关系（所以叫中间），相反，IR扮演了这2种语言之间桥梁的角色。</p>
 <aside name="ir">
-<p>There are a few well-established styles of IRs out there. Hit your search engine
-of choice and look for &ldquo;control flow graph&rdquo;, &ldquo;static single-assignment&rdquo;,
-&ldquo;continuation-passing style&rdquo;, and &ldquo;three-address code&rdquo;.</p>
+<p>有一些成熟的 IR 风格，打开你选择的搜索引擎并查找“控制流图”、“静态单一赋值”、“继续传递样式”和“三地址代码”。</p>
 </aside>
-<p>This lets you support multiple source languages and target platforms with less
-effort. Say you want to implement Pascal, C, and Fortran compilers, and you want
-to target x86, ARM, and, I dunno, SPARC. Normally, that means you&rsquo;re signing up
-to write <em>nine</em> full compilers: Pascal&rarr;x86, C&rarr;ARM, and every other
-combination.</p>
-<p>A <span name="gcc">shared</span> intermediate representation reduces that
-dramatically. You write <em>one</em> front end for each source language that produces
-the IR. Then <em>one</em> back end for each target architecture. Now you can mix and
-match those to get every combination.</p>
+<p>这可以让你更轻松地支持多种源语言和多种目标平台。假设你想实现Pascal、C和Fortran编译器，并且你想针对x86、ARM，还有SPARC体系结构开发编译器。通常情况下，这意味着你需要写<em>九</em>个完整的编译器： Pascal&rarr;x86, C&rarr;ARM，以及其他各种组合。</p>
+<p>一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写<em>一个</em>前端*，生成IR中间表示，然后<em>一个</em>后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。</p>
 <aside name="gcc">
-<p>If you&rsquo;ve ever wondered how <a href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a> supports so many crazy languages and
-architectures, like Modula-3 on Motorola 68k, now you know. Language front ends
-target one of a handful of IRs, mainly <a href="https://gcc.gnu.org/onlinedocs/gccint/GIMPLE.html">GIMPLE</a> and <a href="https://gcc.gnu.org/onlinedocs/gccint/RTL.html">RTL</a>. Target back ends
-like the one for 68k then take those IRs and produce native code.</p>
+<p>如果你曾经好奇<a href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>如何支持这么多疯狂的编程语言和体系结构，例如Motorola 68k上的Modula-3，现在你就明白了。 编程语言前端针对的是少数IR，主要是<a href="https://gcc.gnu.org/onlinedocs/gccint/GIMPLE.html">GIMPLE</a>和<a href="https://gcc.gnu.org/onlinedocs/gccint/RTL.html">RTL</a>.目标后端如68k，会接受这些IR并生成机器代码。</p>
 </aside>
-<p>There&rsquo;s another big reason we might want to transform the code into a form that
-makes the semantics more apparent<span class="ellipse">&thinsp;.&thinsp;.&thinsp;.&nbsp;</span></p>
+<p>还有一个重要的原因是，我们可能希望将代码转化为某种形式，使语义更加明确<span class="ellipse">&thinsp;.&thinsp;.&thinsp;.&nbsp;</span>。</p>
 <h3><a href="#优化" id="优化"><small>2&#8202;.&#8202;1&#8202;.&#8202;5</small>优化</a></h3>
 <p>Once we understand what the user&rsquo;s program means, we are free to swap it out
 with a different program that has the <em>same semantics</em> but implements them more
