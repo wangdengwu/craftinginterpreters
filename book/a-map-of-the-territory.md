@@ -139,75 +139,46 @@ Some characters in a source file don't actually mean anything.
 
 ### 优化
 
-Once we understand what the user's program means, we are free to swap it out
-with a different program that has the *same semantics* but implements them more
-efficiently -- we can **optimize** it.
+一旦我们理解了用户程序的含义，我们就可以用另外一个更有效率但是有*相同语义*的不同程序替换它，我们可以**优化**它。
 
-A simple example is **constant folding**: if some expression always evaluates to
-the exact same value, we can do the evaluation at compile time and replace the
-code for the expression with its result. If the user typed in this:
+个简单的例子是**常量折叠**：如果某个表达式求值得到的始终是完全相同的值，我们可以在编译时进行求值，并用其结果替换该表达式的代码。如果用户输入：
 
 ```java
 pennyArea = 3.14159 * (0.75 / 2) * (0.75 / 2);
 ```
 
-we could do all of that arithmetic in the compiler and change the code to:
+我们可以在编译器中完成所有的算术运算，并将代码更改为：
 
 ```java
 pennyArea = 0.4417860938;
 ```
 
-Optimization is a huge part of the programming language business. Many language
-hackers spend their entire careers here, squeezing every drop of performance
-they can out of their compilers to get their benchmarks a fraction of a percent
-faster. It can become a sort of obsession.
+优化是编程语言业务的重要组成部分。许多编程语言黑客把他们的整个职业生涯都花在了这里，从编译器中榨取每一滴性能，以使他们的基准测试速度提高百分之几。这变成了一种痴迷。
 
-We're mostly going to <span name="rathole">hop over that rathole</span> in this
-book. Many successful languages have surprisingly few compile-time
-optimizations. For example, Lua and CPython generate relatively unoptimized
-code, and focus most of their performance effort on the runtime.
+我们在这本书里大部分情况下会<span name="rathole">跳过</span>编译优化，很多成功的语言很少做编译期优化，比如，Lua和CPython生成相对未优化的代码，而把精力放在运行时性能优化上。
 
 <aside name="rathole">
 
-If you can't resist poking your foot into that hole, some keywords to get you
-started are "constant propagation", "common subexpression elimination", "loop
-invariant code motion", "global value numbering", "strength reduction", "scalar
-replacement of aggregates", "dead code elimination", and "loop unrolling".
+如果你忍不住想一探究竟，一些关键字可以帮助你入门：“持续传播”，“公共子表达式消除”，“循环不变代码外提”，“全局值编号”，“强度折减”，“聚合标量替换”，“死码删除”和“循环展开”。
 
 </aside>
 
 ### 代码生成
 
-We have applied all of the optimizations we can think of to the user's program.
-The last step is converting it to a form the machine can actually run. In other
-words, **generating code** (or **code gen**), where "code" here usually refers to
-the kind of primitive assembly-like instructions a CPU runs and not the kind of
-"source code" a human might want to read.
+我们已经将所有可以想到的优化应用到了用户程序中。
+最后一步是将其转换为机器可以实际运行的形式。换句话说，**生成代码**（或**代码生成**），这里的“代码”通常是指CPU运行的类似于汇编的原始指令，而不是人类可能想要阅读的“源代码”。
 
-Finally, we are in the **back end**, descending the other side of the mountain.
-From here on out, our representation of the code becomes more and more
-primitive, like evolution run in reverse, as we get closer to something our
-simple-minded machine can understand.
+最后，我们到了**后端**,从山的另一边开始下降。
+从现在开始，我们的代码表示将变的越来越原始，像逆向进化，因为我们越来越接近机器所能理解的指令。
 
-We have a decision to make. Do we generate instructions for a real CPU or a
-virtual one? If we generate real machine code, we get an executable that the OS
-can load directly onto the chip. Native code is lightning fast, but generating
-it is a lot of work. Today's architectures have piles of instructions, complex
-pipelines, and enough <span name="aad">historical baggage</span> to fill a 747's
-luggage bay.
+我们需要做一个决定，我们是为真实CPU还是虚拟CPU生成指令？如果我们生成真实的机器代码，我们得到一个可执行文件，操作系统可以将其直接加载到芯片上。
+原生代码的执行速度快如闪电，但生成它需要大量工作。当今的体系结构包含大量指令，复杂的流水线和足够塞满一架波音747飞机行李舱的<span name="aad">历史包袱</span>。
 
-Speaking the chip's language also means your compiler is tied to a specific
-architecture. If your compiler targets [x86][] machine code, it's not going to
-run on an [ARM][] device. All the way back in the '60s, during the
-Cambrian explosion of computer architectures, that lack of portability was a
-real obstacle.
+使用特定指令集也意味着你的编译器绑定到特定架构上，如果你的编译器面向[x86][]指令集，它就不能运行在[ARM][]设备上。计算机体系结构爆发前的60年代，缺乏可移植性是很大的障碍。
 
 <aside name="aad">
 
-For example, the [AAD][] ("ASCII Adjust AX Before Division") instruction lets
-you perform division, which sounds useful. Except that instruction takes, as
-operands, two binary-coded decimal digits packed into a single 16-bit register.
-When was the last time *you* needed BCD on a 16-bit machine?
+例如，[AAD][] ("ASCII Adjust AX Before Division")指令可以让你执行除法，这听起来很有用。除了该指令将两个二进制编码的十进制数字作为操作数打包到一个16位寄存器中。*你*最后一次在16位机器上使用BCD是什么时候？
 
 [aad]: http://www.felixcloutier.com/x86/AAD.html
 
@@ -216,17 +187,11 @@ When was the last time *you* needed BCD on a 16-bit machine?
 [x86]: https://en.wikipedia.org/wiki/X86
 [arm]: https://en.wikipedia.org/wiki/ARM_architecture
 
-To get around that, hackers like Martin Richards and Niklaus Wirth, of BCPL and
-Pascal fame, respectively, made their compilers produce *virtual* machine code.
-Instead of instructions for some real chip, they produced code for a
-hypothetical, idealized machine. Wirth called this **p-code** for *portable*,
-but today, we generally call it **bytecode** because each instruction is often a
-single byte long.
+为了解决这个问题，像BCPL的Martin Richards和Pascal的Niklaus Wirth这样的黑客，分别使他们的编译器生成*虚拟*机器码，取代真实的机器指令。
+他们生成了一个假设的、理想化的机器所运行的机器码。Wirth称这种**p-code**为“可移植代码”，但今天，我们通常称它为**字节码**因为每条指令通常都是一个字节长。
 
-These synthetic instructions are designed to map a little more closely to the
-language's semantics, and not be so tied to the peculiarities of any one
-computer architecture and its accumulated historical cruft. You can think of it
-like a dense, binary encoding of the language's low-level operations.
+这些合成指令的设计是为了更紧密地映射到编程语言的语义上，而不是与任何一种计算机体系结构的特殊性及其积累的历史遗留问题联系在一起。
+你可以把它认为是编程语言底层操作的密集二进制编码。
 
 ### 虚拟机
 
