@@ -30,9 +30,9 @@
     
     <ul>
       <li><a href="#编程语言的组成部分"><small>2.1</small> 编程语言的组成部分</a></li>
-      <li><a href="#shortcuts-and-alternate-routes"><small>2.2</small> Shortcuts and Alternate Routes</a></li>
-      <li><a href="#compilers-and-interpreters"><small>2.3</small> Compilers and Interpreters</a></li>
-      <li><a href="#our-journey"><small>2.4</small> Our Journey</a></li>
+      <li><a href="#捷径和备选路线"><small>2.2</small> 捷径和备选路线</a></li>
+      <li><a href="#编译器和解释器"><small>2.3</small> 编译器和解释器</a></li>
+      <li><a href="#我们的旅程"><small>2.4</small> 我们的旅程</a></li>
       <li class="divider"></li>
       <li class="end-part"><a href="#challenges">挑战</a></li>
     </ul>
@@ -60,9 +60,9 @@
         
         <ul>
           <li><a href="#编程语言的组成部分"><small>2.1</small> 编程语言的组成部分</a></li>
-          <li><a href="#shortcuts-and-alternate-routes"><small>2.2</small> Shortcuts and Alternate Routes</a></li>
-          <li><a href="#compilers-and-interpreters"><small>2.3</small> Compilers and Interpreters</a></li>
-          <li><a href="#our-journey"><small>2.4</small> Our Journey</a></li>
+          <li><a href="#捷径和备选路线"><small>2.2</small> 捷径和备选路线</a></li>
+          <li><a href="#编译器和解释器"><small>2.3</small> 编译器和解释器</a></li>
+          <li><a href="#我们的旅程"><small>2.4</small> 我们的旅程</a></li>
           <li class="divider"></li>
           <li class="end-part"><a href="#challenges">挑战</a></li>
         </ul>
@@ -197,59 +197,32 @@
 <p>这些合成指令的设计是为了更紧密地映射到编程语言的语义上，而不是与任何一种计算机体系结构的特殊性及其积累的历史遗留问题联系在一起。
 你可以把它认为是编程语言底层操作的密集二进制编码。</p>
 <h3><a href="#虚拟机" id="虚拟机"><small>2&#8202;.&#8202;1&#8202;.&#8202;7</small>虚拟机</a></h3>
-<p>If your compiler produces bytecode, your work isn&rsquo;t over once that&rsquo;s done. Since
-there is no chip that speaks that bytecode, it&rsquo;s your job to translate. Again,
-you have two options. You can write a little mini-compiler for each target
-architecture that converts the bytecode to native code for that machine. You
-still have to do work for <span name="shared">each</span> chip you support, but
-this last stage is pretty simple and you get to reuse the rest of the compiler
-pipeline across all of the machines you support. You&rsquo;re basically using your
-bytecode as an intermediate representation.</p>
+<p>If your compiler produces bytecode,
+如果你编译成了字节码，你的工作还没有结束，因为没有芯片可以执行你的字节码，你还需要转译。
+你有两个选择，你可以为每个体系结构写一个小的微编译器，把你的字节码转译成对应的机器代码。
+你仍然需要针对你支持的<span name="shared">每种</span>芯片做一些工作，不过这个最后阶段比较简单，你可以复用这部分编译器流水线，只适配你支持的体系结构。
+你基本上只是使用你的字节码作为中间表示。</p>
 <aside name="shared" class="bottom">
-<p>The basic principle here is that the farther down the pipeline you push the
-architecture-specific work, the more of the earlier phases you can share across
-architectures.</p>
-<p>There is a tension, though. Many optimizations, like register allocation and
-instruction selection, work best when they know the strengths and capabilities
-of a specific chip. Figuring out which parts of your compiler can be shared and
-which should be target-specific is an art.</p>
+<p>基本原则是，你把特定于体系架构的工作推得越靠后，你就可以在不同架构之间共享更多的早期阶段的成果。
+也有一些特例，比如，许多优化，如寄存器分配和指令选择，在了解特定芯片的优势和能力时效果最佳。弄清楚编译器的哪些部分可以共享，哪些应该针对特定芯片是一门艺术。</p>
 </aside>
-<p>Or you can write a <span name="vm"><strong>virtual machine</strong></span> (<strong>VM</strong>), a
-program that emulates a hypothetical chip supporting your virtual architecture
-at runtime. Running bytecode in a VM is slower than translating it to native
-code ahead of time because every instruction must be simulated at runtime each
-time it executes. In return, you get simplicity and portability. Implement your
-VM in, say, C, and you can run your language on any platform that has a C
-compiler. This is how the second interpreter we build in this book works.</p>
+<p>或者你可以写一个<span name="vm"><strong>虚拟机</strong></span>(<strong>VM</strong>)，一个模拟虚拟芯片来运行你的字节码的程序。
+在虚拟机中运行字节码比提前将其翻译成机器代码要慢，因为每条指令每次执行时都必须在运行时模拟。作为回报，你得到的是简单性和可移植性。
+比如说用C实现虚拟机，你就可以在任何有C编译器的平台上运行你的语言，这就是我们在本书中构建的第二个解释器的工作原理。</p>
 <aside name="vm">
-<p>The term &ldquo;virtual machine&rdquo; also refers to a different kind of abstraction. A
-<strong>system virtual machine</strong> emulates an entire hardware platform and operating
-system in software. This is how you can play Windows games on your Linux
-machine, and how cloud providers give customers the user experience of
-controlling their own &ldquo;server&rdquo; without needing to physically allocate separate
-computers for each user.</p>
-<p>The kind of VMs we&rsquo;ll talk about in this book are <strong>language virtual machines</strong>
-or <strong>process virtual machines</strong> if you want to be unambiguous.</p>
+<p>术语“虚拟机”有不同的抽象。“系统虚拟机”在软件中模拟整个硬件平台和操作系统。
+<strong>系统虚拟机</strong>在软件中模拟整个硬件平台和操作系统。这就是为什么你可以在Linux机器上玩Windows游戏，
+也是为什么云服务商，可以给客户提供控制他们自己的“服务器”的用户体验，而不需要为每个用户分配不同的物理机的原因。</p>
+<p>我们这本书里讨论的虚拟机是<strong>语言虚拟机</strong>或<strong>进程虚拟机</strong>，希望你不要搞混。</p>
 </aside>
 <h3><a href="#运行时" id="运行时"><small>2&#8202;.&#8202;1&#8202;.&#8202;8</small>运行时</a></h3>
-<p>We have finally hammered the user&rsquo;s program into a form that we can execute. The
-last step is running it. If we compiled it to machine code, we simply tell the
-operating system to load the executable and off it goes. If we compiled it to
-bytecode, we need to start up the VM and load the program into that.</p>
-<p>In both cases, for all but the basest of low-level languages, we usually need
-some services that our language provides while the program is running. For
-example, if the language automatically manages memory, we need a garbage
-collector going in order to reclaim unused bits. If our language supports
-&ldquo;instance of&rdquo; tests so you can see what kind of object you have, then we need
-some representation to keep track of the type of each object during execution.</p>
-<p>All of this stuff is going at runtime, so it&rsquo;s called, appropriately, the
-<strong>runtime</strong>. In a fully compiled language, the code implementing the runtime
-gets inserted directly into the resulting executable. In, say, <a href="https://golang.org/">Go</a>, each
-compiled application has its own copy of Go&rsquo;s runtime directly embedded in it.
-If the language is run inside an interpreter or VM, then the runtime lives
-there. This is how most implementations of languages like Java, Python, and
-JavaScript work.</p>
-<h2><a href="#shortcuts-and-alternate-routes" id="shortcuts-and-alternate-routes"><small>2&#8202;.&#8202;2</small>Shortcuts and Alternate Routes</a></h2>
+<p>We have finally hammered the user&rsquo;s program into a form that we can execute.
+我们终于将用户程序锤炼成可以执行的形式了。最后一步是运行它。如果我们将其编译为机器码，我们只需告诉操作系统加载可执行文件，然后就可以运行了。如果我们将它编译成字节码，我们需要启动VM并将程序加载到其中。</p>
+<p>在这两种情况下，对于除了最基础的低级语言之外的所有语言，我们通常需要我们的语言在程序运行时提供一些服务。
+比如，如果编程语言是自动管理内存的，我们需要一个垃圾收集器去回收未使用的比特位。如果我们的语言支持
+&ldquo;instance of&rdquo; 测试，这样你就能知道你有什么类型的对象，那么我们就需要一些表示方法来跟踪执行过程中每个对象的类型。</p>
+<p>所有的这些都是在运行时发生的，所以其被理所当然的称为<strong>运行时</strong>。在一个完全编译的语言中，实现运行时的代码会直接插入到生成的可执行文件中。比如说，在<a href="https://golang.org/">Go</a>中，每一个编译好的程序都被植入一份自己的Go运行时。如果语言是在解释器或虚拟机内运行，那么运行时就一直常驻内存。这也就是Java、Python和JavaScript等大多数语言实现的工作方式。</p>
+<h2><a href="#捷径和备选路线" id="捷径和备选路线"><small>2&#8202;.&#8202;2</small>捷径和备选路线</a></h2>
 <p>That&rsquo;s the long path covering every possible phase you might implement. Many
 languages do walk the entire route, but there are a few shortcuts and alternate
 paths.</p>
@@ -368,7 +341,7 @@ name="hot">hot spots</span> with more advanced optimizations.</p>
 <aside name="hot">
 <p>This is, of course, exactly where the HotSpot JVM gets its name.</p>
 </aside>
-<h2><a href="#compilers-and-interpreters" id="compilers-and-interpreters"><small>2&#8202;.&#8202;3</small>Compilers and Interpreters</a></h2>
+<h2><a href="#编译器和解释器" id="编译器和解释器"><small>2&#8202;.&#8202;3</small>编译器和解释器</a></h2>
 <p>Now that I&rsquo;ve stuffed your head with a dictionary&rsquo;s worth of programming
 language jargon, we can finally address a question that&rsquo;s plagued coders since
 time immemorial: What&rsquo;s the difference between a compiler and an interpreter?</p>
@@ -432,7 +405,7 @@ is still compiling internally).</p>
 <p>That overlapping region in the center is where our second interpreter lives too,
 since it internally compiles to bytecode. So while this book is nominally about
 interpreters, we&rsquo;ll cover some compilation too.</p>
-<h2><a href="#our-journey" id="our-journey"><small>2&#8202;.&#8202;4</small>Our Journey</a></h2>
+<h2><a href="#我们的旅程" id="我们的旅程"><small>2&#8202;.&#8202;4</small>我们的旅程</a></h2>
 <p>That&rsquo;s a lot to take in all at once. Don&rsquo;t worry. This isn&rsquo;t the chapter where
 you&rsquo;re expected to <em>understand</em> all of these pieces and parts. I just want you
 to know that they are out there and roughly how they fit together.</p>
@@ -446,7 +419,7 @@ all you need to focus on is the path in front of you.</p>
 <p>Henceforth, I promise to tone down the whole mountain metaphor thing.</p>
 </aside>
 <div class="challenges">
-<h2><a href="#challenges" id="challenges">Challenges</a></h2>
+<h2><a href="#challenges" id="challenges">挑战</a></h2>
 <ol>
 <li>
 <p>Pick an open source implementation of a language you like. Download the

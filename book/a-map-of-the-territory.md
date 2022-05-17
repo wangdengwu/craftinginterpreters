@@ -195,75 +195,47 @@ pennyArea = 0.4417860938;
 
 ### 虚拟机
 
-If your compiler produces bytecode, your work isn't over once that's done. Since
-there is no chip that speaks that bytecode, it's your job to translate. Again,
-you have two options. You can write a little mini-compiler for each target
-architecture that converts the bytecode to native code for that machine. You
-still have to do work for <span name="shared">each</span> chip you support, but
-this last stage is pretty simple and you get to reuse the rest of the compiler
-pipeline across all of the machines you support. You're basically using your
-bytecode as an intermediate representation.
+If your compiler produces bytecode,
+如果你编译成了字节码，你的工作还没有结束，因为没有芯片可以执行你的字节码，你还需要转译。
+你有两个选择，你可以为每个体系结构写一个小的微编译器，把你的字节码转译成对应的机器代码。
+你仍然需要针对你支持的<span name="shared">每种</span>芯片做一些工作，不过这个最后阶段比较简单，你可以复用这部分编译器流水线，只适配你支持的体系结构。
+你基本上只是使用你的字节码作为中间表示。
 
 <aside name="shared" class="bottom">
 
-The basic principle here is that the farther down the pipeline you push the
-architecture-specific work, the more of the earlier phases you can share across
-architectures.
-
-There is a tension, though. Many optimizations, like register allocation and
-instruction selection, work best when they know the strengths and capabilities
-of a specific chip. Figuring out which parts of your compiler can be shared and
-which should be target-specific is an art.
+基本原则是，你把特定于体系架构的工作推得越靠后，你就可以在不同架构之间共享更多的早期阶段的成果。
+也有一些特例，比如，许多优化，如寄存器分配和指令选择，在了解特定芯片的优势和能力时效果最佳。弄清楚编译器的哪些部分可以共享，哪些应该针对特定芯片是一门艺术。
 
 </aside>
 
-Or you can write a <span name="vm">**virtual machine**</span> (**VM**), a
-program that emulates a hypothetical chip supporting your virtual architecture
-at runtime. Running bytecode in a VM is slower than translating it to native
-code ahead of time because every instruction must be simulated at runtime each
-time it executes. In return, you get simplicity and portability. Implement your
-VM in, say, C, and you can run your language on any platform that has a C
-compiler. This is how the second interpreter we build in this book works.
+或者你可以写一个<span name="vm">**虚拟机**</span>(**VM**)，一个模拟虚拟芯片来运行你的字节码的程序。
+在虚拟机中运行字节码比提前将其翻译成机器代码要慢，因为每条指令每次执行时都必须在运行时模拟。作为回报，你得到的是简单性和可移植性。
+比如说用C实现虚拟机，你就可以在任何有C编译器的平台上运行你的语言，这就是我们在本书中构建的第二个解释器的工作原理。
 
 <aside name="vm">
 
-The term "virtual machine" also refers to a different kind of abstraction. A
-**system virtual machine** emulates an entire hardware platform and operating
-system in software. This is how you can play Windows games on your Linux
-machine, and how cloud providers give customers the user experience of
-controlling their own "server" without needing to physically allocate separate
-computers for each user.
+术语“虚拟机”有不同的抽象。“系统虚拟机”在软件中模拟整个硬件平台和操作系统。
+**系统虚拟机**在软件中模拟整个硬件平台和操作系统。这就是为什么你可以在Linux机器上玩Windows游戏，
+也是为什么云服务商，可以给客户提供控制他们自己的“服务器”的用户体验，而不需要为每个用户分配不同的物理机的原因。
 
-The kind of VMs we'll talk about in this book are **language virtual machines**
-or **process virtual machines** if you want to be unambiguous.
+我们这本书里讨论的虚拟机是**语言虚拟机**或**进程虚拟机**，希望你不要搞混。
 
 </aside>
 
 ### 运行时
 
-We have finally hammered the user's program into a form that we can execute. The
-last step is running it. If we compiled it to machine code, we simply tell the
-operating system to load the executable and off it goes. If we compiled it to
-bytecode, we need to start up the VM and load the program into that.
+We have finally hammered the user's program into a form that we can execute.
+我们终于将用户程序锤炼成可以执行的形式了。最后一步是运行它。如果我们将其编译为机器码，我们只需告诉操作系统加载可执行文件，然后就可以运行了。如果我们将它编译成字节码，我们需要启动VM并将程序加载到其中。
 
-In both cases, for all but the basest of low-level languages, we usually need
-some services that our language provides while the program is running. For
-example, if the language automatically manages memory, we need a garbage
-collector going in order to reclaim unused bits. If our language supports
-"instance of" tests so you can see what kind of object you have, then we need
-some representation to keep track of the type of each object during execution.
+在这两种情况下，对于除了最基础的低级语言之外的所有语言，我们通常需要我们的语言在程序运行时提供一些服务。
+比如，如果编程语言是自动管理内存的，我们需要一个垃圾收集器去回收未使用的比特位。如果我们的语言支持
+"instance of" 测试，这样你就能知道你有什么类型的对象，那么我们就需要一些表示方法来跟踪执行过程中每个对象的类型。
 
-All of this stuff is going at runtime, so it's called, appropriately, the
-**runtime**. In a fully compiled language, the code implementing the runtime
-gets inserted directly into the resulting executable. In, say, [Go][], each
-compiled application has its own copy of Go's runtime directly embedded in it.
-If the language is run inside an interpreter or VM, then the runtime lives
-there. This is how most implementations of languages like Java, Python, and
-JavaScript work.
+所有的这些都是在运行时发生的，所以其被理所当然的称为**运行时**。在一个完全编译的语言中，实现运行时的代码会直接插入到生成的可执行文件中。比如说，在[Go][]中，每一个编译好的程序都被植入一份自己的Go运行时。如果语言是在解释器或虚拟机内运行，那么运行时就一直常驻内存。这也就是Java、Python和JavaScript等大多数语言实现的工作方式。
 
 [go]: https://golang.org/
 
-## Shortcuts and Alternate Routes
+## 捷径和备选路线
 
 That's the long path covering every possible phase you might implement. Many
 languages do walk the entire route, but there are a few shortcuts and alternate
@@ -426,7 +398,7 @@ This is, of course, exactly where the HotSpot JVM gets its name.
 
 </aside>
 
-## Compilers and Interpreters
+## 编译器和解释器
 
 Now that I've stuffed your head with a dictionary's worth of programming
 language jargon, we can finally address a question that's plagued coders since
@@ -511,7 +483,7 @@ That overlapping region in the center is where our second interpreter lives too,
 since it internally compiles to bytecode. So while this book is nominally about
 interpreters, we'll cover some compilation too.
 
-## Our Journey
+## 我们的旅程
 
 That's a lot to take in all at once. Don't worry. This isn't the chapter where
 you're expected to *understand* all of these pieces and parts. I just want you
@@ -533,7 +505,7 @@ Henceforth, I promise to tone down the whole mountain metaphor thing.
 
 <div class="challenges">
 
-## Challenges
+## 挑战
 
 1. Pick an open source implementation of a language you like. Download the
    source code and poke around in it. Try to find the code that implements the
