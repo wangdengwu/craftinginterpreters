@@ -55,7 +55,6 @@
 
 </aside>
 
-Some characters in a source file don't actually mean anything.
 有一些字符在源文件中其实是没有含义的，空格就可以忽略，还有注释，根据语言规范，这些都将被忽略。扫描通常都无视这些，只留下干净有序的词法单元。
 
 <img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
@@ -65,7 +64,7 @@ Some characters in a source file don't actually mean anything.
 下一步是**语法分析**。这就是我们从句法中得到**文法**的地方-- 用较小的部分组成较大的表达式和语句的能力。
 你有没有在英语课上图解过句子？如果有，那就是词法分析要做的。除了英语拥有成千上万的“关键词”和大量的歧义，编程语言则简单的多。
 
-词法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
+语法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
 这些语法树还有另外两个名字--**解析树**或**抽象语法树**--取决于它们与源语言的基本句法结构的接近程度。在实践中，编程语言人员通常叫它们**语法树**，**ASTs**，或者直接叫**树**。
 
 <img src="image/a-map-of-the-territory/ast.png" alt="An abstract syntax tree." />
@@ -123,7 +122,7 @@ Some characters in a source file don't actually mean anything.
 
 这可以让你更轻松地支持多种源语言和多种目标平台。假设你想实现Pascal、C和Fortran编译器，并且你想针对x86、ARM，还有SPARC体系结构开发编译器。通常情况下，这意味着你需要写*九*个完整的编译器： Pascal&rarr;x86, C&rarr;ARM，以及其他各种组合。
 
-一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写*一个*前端*，生成IR中间表示，然后*一个*后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。
+一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写*一个*前端，生成IR中间表示，然后*一个*后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。
 
 <aside name="gcc">
 
@@ -141,7 +140,7 @@ Some characters in a source file don't actually mean anything.
 
 一旦我们理解了用户程序的含义，我们就可以用另外一个更有效率但是有*相同语义*的不同程序替换它，我们可以**优化**它。
 
-个简单的例子是**常量折叠**：如果某个表达式求值得到的始终是完全相同的值，我们可以在编译时进行求值，并用其结果替换该表达式的代码。如果用户输入：
+一个简单的例子是**常量折叠**：如果某个表达式求值得到的始终是完全相同的值，我们可以在编译时进行求值，并用其结果替换该表达式的代码。如果用户输入：
 
 ```java
 pennyArea = 3.14159 * (0.75 / 2) * (0.75 / 2);
@@ -235,64 +234,39 @@ pennyArea = 0.4417860938;
 
 ## 捷径和备选路线
 
-That's the long path covering every possible phase you might implement. Many
-languages do walk the entire route, but there are a few shortcuts and alternate
-paths.
+这是一条漫长的道路，涵盖了你要实现的每个可能的阶段。许多编程语言的确走完了整条路线，但也有一些捷径和备选路径。
 
-### Single-pass compilers
+### 单趟编译器
 
-Some simple compilers interleave parsing, analysis, and code generation so that
-they produce output code directly in the parser, without ever allocating any
-syntax trees or other IRs. These <span name="sdt">**single-pass
-compilers**</span> restrict the design of the language. You have no intermediate
-data structures to store global information about the program, and you don't
-revisit any previously parsed part of the code. That means as soon as you see
-some expression, you need to know enough to correctly compile it.
+一些简单的编译器将语法分析、语义分析和代码生成交织在一起，这样它们就可以直接在语法分析器中生成输出代码，而无需分配任何语法树或其他IR。这些<span name="sdt">**单趟编译器**</span>限制了编程语言的设计。你没有中间数据结构来存储程序的全局信息，也不会重新访问任何之前语法分析过的代码部分。这意味着，一旦你看到某个表达式，就需要足够的知识来正确地对其进行编译。
 
 <aside name="sdt">
 
-[**Syntax-directed translation**][pass] is a structured technique for building
-these all-at-once compilers. You associate an *action* with each piece of the
+[**语法制导翻译**][pass]是一种结构化的技术，用于构建这些一次性编译器。 You associate an *action* with each piece of the
 grammar, usually one that generates output code. Then, whenever the parser
 matches that chunk of syntax, it executes the action, building up the target
 code one rule at a time.
+你把相应的*操作*附加到每一条语法规则上，然后生成相应代码。所以，每当解析器匹配到对应语法块时，它就会执行操作，按照每条规则一步一步构建目标代码。
 
-[pass]: https://en.wikipedia.org/wiki/Syntax-directed_translation
+[pass]: https://zh.wikipedia.org/wiki/%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91
 
 </aside>
 
-Pascal and C were designed around this limitation. At the time, memory was so
-precious that a compiler might not even be able to hold an entire *source file*
-in memory, much less the whole program. This is why Pascal's grammar requires
-type declarations to appear first in a block. It's why in C you can't call a
-function above the code that defines it unless you have an explicit forward
-declaration that tells the compiler what it needs to know to generate code for a
-call to the later function.
+Pascal和C语言就是围绕这个限制而设计的。在当时，内存非常珍贵，一个编译器可能连整个*源文件*都无法存放在内存中，更不用说整个程序了。这也是为什么Pascal的语法要求类型声明要放在一个块的最前面。这也是为什么在C语言里，在调用函数之前没有定义它，就不能编译通过，除非你在调用函数之前有明确的声明，来告诉编译器它需要怎么生成代码，后续函数才能调用。
 
-### Tree-walk interpreters
+### 树遍历解释器
 
-Some programming languages begin executing code right after parsing it to an AST
-(with maybe a bit of static analysis applied). To run the program, the
-interpreter traverses the syntax tree one branch and leaf at a time, evaluating
-each node as it goes.
+有些编程语言在将代码语法分析为AST后就开始执行代码（可能应用了一点静态分析）。运行程序，解释器依次遍历语法树的每个分支和叶子结点，然后对每个节点进行表达。
 
-This implementation style is common for student projects and little languages,
-but is not widely used for <span name="ruby">general-purpose</span> languages
-since it tends to be slow. Some people use "interpreter" to mean only these
-kinds of implementations, but others define that word more generally, so I'll
-use the inarguably explicit **tree-walk interpreter** to refer to these. Our
-first interpreter rolls this way.
+这种实现风格在学生项目和小型语言中很常见，但在<span name="ruby">通用</span>编程语言中并不广泛使用，因为它往往很慢。有些人使用“解释器”仅指这类实现，但其他人对“解释器”一词的定义更宽泛，因此我将使用没有歧义的**树遍历解释器**来指代这些实现。我们的第一个解释器就是这样工作的。
 
 <aside name="ruby">
 
-A notable exception is early versions of Ruby, which were tree walkers. At 1.9,
-the canonical implementation of Ruby switched from the original MRI (Matz's Ruby
-Interpreter) to Koichi Sasada's YARV (Yet Another Ruby VM). YARV is a
-bytecode virtual machine.
+一个明显的例外是早期版本的Ruby，它是树遍历解释器。在Ruby 1.9时，Ruby的规范实现从最初的MRI（“Matz's Ruby Interpreter”）切换到了Koichi Sasada的YARV（“Yet Another Ruby VM”）。YARV是一个字节码虚拟机。
 
 </aside>
 
-### Transpilers
+### 转译器
 
 <span name="gary">Writing</span> a complete back end for a language can be a lot
 of work. If you have some existing generic IR to target, you could bolt your

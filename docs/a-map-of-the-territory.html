@@ -117,12 +117,11 @@
 <aside name="word">
 <p>&ldquo;Lexical&rdquo;来自希腊语词根“lex”，意思是“单词”。</p>
 </aside>
-<p>Some characters in a source file don&rsquo;t actually mean anything.
-有一些字符在源文件中其实是没有含义的，空格就可以忽略，还有注释，根据语言规范，这些都将被忽略。扫描通常都无视这些，只留下干净有序的词法单元。</p><img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
+<p>有一些字符在源文件中其实是没有含义的，空格就可以忽略，还有注释，根据语言规范，这些都将被忽略。扫描通常都无视这些，只留下干净有序的词法单元。</p><img src="image/a-map-of-the-territory/tokens.png" alt="[var] [average] [=] [(] [min] [+] [max] [)] [/] [2] [;]" />
 <h3><a href="#语法分析" id="语法分析"><small>2&#8202;.&#8202;1&#8202;.&#8202;2</small>语法分析</a></h3>
 <p>下一步是<strong>语法分析</strong>。这就是我们从句法中得到<strong>文法</strong>的地方-- 用较小的部分组成较大的表达式和语句的能力。
 你有没有在英语课上图解过句子？如果有，那就是词法分析要做的。除了英语拥有成千上万的“关键词”和大量的歧义，编程语言则简单的多。</p>
-<p>词法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
+<p>语法分析将一系列词法单元组装成一棵树状结构，这棵树反映了语法的嵌套性质。
 这些语法树还有另外两个名字--<strong>解析树</strong>或<strong>抽象语法树</strong>--取决于它们与源语言的基本句法结构的接近程度。在实践中，编程语言人员通常叫它们<strong>语法树</strong>，<strong>ASTs</strong>，或者直接叫<strong>树</strong>。</p><img src="image/a-map-of-the-territory/ast.png" alt="An abstract syntax tree." />
 <p>语法分析器在计算机科学中有着悠久而丰富的历史，它与人工智能界有着密切的联系。
 很多今天使用的分析编程语言的技术，最初都来源于分析人类语言，其研究者构建的目的是，试着让计算机和我们对话。</p>
@@ -163,14 +162,14 @@
 <p>有一些成熟的 IR 风格，打开你选择的搜索引擎并查找“控制流图”、“静态单一赋值”、“继续传递样式”和“三地址代码”。</p>
 </aside>
 <p>这可以让你更轻松地支持多种源语言和多种目标平台。假设你想实现Pascal、C和Fortran编译器，并且你想针对x86、ARM，还有SPARC体系结构开发编译器。通常情况下，这意味着你需要写<em>九</em>个完整的编译器： Pascal&rarr;x86, C&rarr;ARM，以及其他各种组合。</p>
-<p>一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写<em>一个</em>前端*，生成IR中间表示，然后<em>一个</em>后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。</p>
+<p>一个<span name="gcc">共享的</span>中间表示可以大大减少这种情况。你为每个源语言写<em>一个</em>前端，生成IR中间表示，然后<em>一个</em>后端来处理所有目标结构。现在，你可以将这些混搭起来，得到每一种组合。</p>
 <aside name="gcc">
 <p>如果你曾经好奇<a href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>如何支持这么多疯狂的编程语言和体系结构，例如Motorola 68k上的Modula-3，现在你就明白了。 编程语言前端针对的是少数IR，主要是<a href="https://gcc.gnu.org/onlinedocs/gccint/GIMPLE.html">GIMPLE</a>和<a href="https://gcc.gnu.org/onlinedocs/gccint/RTL.html">RTL</a>.目标后端如68k，会接受这些IR并生成机器代码。</p>
 </aside>
 <p>还有一个重要的原因是，我们可能希望将代码转化为某种形式，使语义更加明确<span class="ellipse">&thinsp;.&thinsp;.&thinsp;.&nbsp;</span>。</p>
 <h3><a href="#优化" id="优化"><small>2&#8202;.&#8202;1&#8202;.&#8202;5</small>优化</a></h3>
 <p>一旦我们理解了用户程序的含义，我们就可以用另外一个更有效率但是有<em>相同语义</em>的不同程序替换它，我们可以<strong>优化</strong>它。</p>
-<p>个简单的例子是<strong>常量折叠</strong>：如果某个表达式求值得到的始终是完全相同的值，我们可以在编译时进行求值，并用其结果替换该表达式的代码。如果用户输入：</p>
+<p>一个简单的例子是<strong>常量折叠</strong>：如果某个表达式求值得到的始终是完全相同的值，我们可以在编译时进行求值，并用其结果替换该表达式的代码。如果用户输入：</p>
 <div class="codehilite"><pre><span class="i">pennyArea</span> = <span class="n">3.14159</span> * (<span class="n">0.75</span> / <span class="n">2</span>) * (<span class="n">0.75</span> / <span class="n">2</span>);
 </pre></div>
 <p>我们可以在编译器中完成所有的算术运算，并将代码更改为：</p>
@@ -221,49 +220,24 @@
 &ldquo;instance of&rdquo; 测试，这样你就能知道你有什么类型的对象，那么我们就需要一些表示方法来跟踪执行过程中每个对象的类型。</p>
 <p>所有的这些都是在运行时发生的，所以其被理所当然的称为<strong>运行时</strong>。在一个完全编译的语言中，实现运行时的代码会直接插入到生成的可执行文件中。比如说，在<a href="https://golang.org/">Go</a>中，每一个编译好的程序都被植入一份自己的Go运行时。如果语言是在解释器或虚拟机内运行，那么运行时就一直常驻内存。这也就是Java、Python和JavaScript等大多数语言实现的工作方式。</p>
 <h2><a href="#捷径和备选路线" id="捷径和备选路线"><small>2&#8202;.&#8202;2</small>捷径和备选路线</a></h2>
-<p>That&rsquo;s the long path covering every possible phase you might implement. Many
-languages do walk the entire route, but there are a few shortcuts and alternate
-paths.</p>
-<h3><a href="#single-pass-compilers" id="single-pass-compilers"><small>2&#8202;.&#8202;2&#8202;.&#8202;1</small>Single-pass compilers</a></h3>
-<p>Some simple compilers interleave parsing, analysis, and code generation so that
-they produce output code directly in the parser, without ever allocating any
-syntax trees or other IRs. These <span name="sdt"><strong>single-pass
-compilers</strong></span> restrict the design of the language. You have no intermediate
-data structures to store global information about the program, and you don&rsquo;t
-revisit any previously parsed part of the code. That means as soon as you see
-some expression, you need to know enough to correctly compile it.</p>
+<p>这是一条漫长的道路，涵盖了你要实现的每个可能的阶段。许多编程语言的确走完了整条路线，但也有一些捷径和备选路径。</p>
+<h3><a href="#单趟编译器" id="单趟编译器"><small>2&#8202;.&#8202;2&#8202;.&#8202;1</small>单趟编译器</a></h3>
+<p>一些简单的编译器将语法分析、语义分析和代码生成交织在一起，这样它们就可以直接在语法分析器中生成输出代码，而无需分配任何语法树或其他IR。这些<span name="sdt"><strong>单趟编译器</strong></span>限制了编程语言的设计。你没有中间数据结构来存储程序的全局信息，也不会重新访问任何之前语法分析过的代码部分。这意味着，一旦你看到某个表达式，就需要足够的知识来正确地对其进行编译。</p>
 <aside name="sdt">
-<p><a href="https://en.wikipedia.org/wiki/Syntax-directed_translation"><strong>Syntax-directed translation</strong></a> is a structured technique for building
-these all-at-once compilers. You associate an <em>action</em> with each piece of the
+<p><a href="https://zh.wikipedia.org/wiki/%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91"><strong>语法制导翻译</strong></a>是一种结构化的技术，用于构建这些一次性编译器。 You associate an <em>action</em> with each piece of the
 grammar, usually one that generates output code. Then, whenever the parser
 matches that chunk of syntax, it executes the action, building up the target
-code one rule at a time.</p>
+code one rule at a time.
+你把相应的<em>操作</em>附加到每一条语法规则上，然后生成相应代码。所以，每当解析器匹配到对应语法块时，它就会执行操作，按照每条规则一步一步构建目标代码。</p>
 </aside>
-<p>Pascal and C were designed around this limitation. At the time, memory was so
-precious that a compiler might not even be able to hold an entire <em>source file</em>
-in memory, much less the whole program. This is why Pascal&rsquo;s grammar requires
-type declarations to appear first in a block. It&rsquo;s why in C you can&rsquo;t call a
-function above the code that defines it unless you have an explicit forward
-declaration that tells the compiler what it needs to know to generate code for a
-call to the later function.</p>
-<h3><a href="#tree-walk-interpreters" id="tree-walk-interpreters"><small>2&#8202;.&#8202;2&#8202;.&#8202;2</small>Tree-walk interpreters</a></h3>
-<p>Some programming languages begin executing code right after parsing it to an AST
-(with maybe a bit of static analysis applied). To run the program, the
-interpreter traverses the syntax tree one branch and leaf at a time, evaluating
-each node as it goes.</p>
-<p>This implementation style is common for student projects and little languages,
-but is not widely used for <span name="ruby">general-purpose</span> languages
-since it tends to be slow. Some people use &ldquo;interpreter&rdquo; to mean only these
-kinds of implementations, but others define that word more generally, so I&rsquo;ll
-use the inarguably explicit <strong>tree-walk interpreter</strong> to refer to these. Our
-first interpreter rolls this way.</p>
+<p>Pascal和C语言就是围绕这个限制而设计的。在当时，内存非常珍贵，一个编译器可能连整个<em>源文件</em>都无法存放在内存中，更不用说整个程序了。这也是为什么Pascal的语法要求类型声明要放在一个块的最前面。这也是为什么在C语言里，在调用函数之前没有定义它，就不能编译通过，除非你在调用函数之前有明确的声明，来告诉编译器它需要怎么生成代码，后续函数才能调用。</p>
+<h3><a href="#树遍历解释器" id="树遍历解释器"><small>2&#8202;.&#8202;2&#8202;.&#8202;2</small>树遍历解释器</a></h3>
+<p>有些编程语言在将代码语法分析为AST后就开始执行代码（可能应用了一点静态分析）。运行程序，解释器依次遍历语法树的每个分支和叶子结点，然后对每个节点进行表达。</p>
+<p>这种实现风格在学生项目和小型语言中很常见，但在<span name="ruby">通用</span>编程语言中并不广泛使用，因为它往往很慢。有些人使用“解释器”仅指这类实现，但其他人对“解释器”一词的定义更宽泛，因此我将使用没有歧义的<strong>树遍历解释器</strong>来指代这些实现。我们的第一个解释器就是这样工作的。</p>
 <aside name="ruby">
-<p>A notable exception is early versions of Ruby, which were tree walkers. At 1.9,
-the canonical implementation of Ruby switched from the original MRI (Matz&rsquo;s Ruby
-Interpreter) to Koichi Sasada&rsquo;s YARV (Yet Another Ruby VM). YARV is a
-bytecode virtual machine.</p>
+<p>一个明显的例外是早期版本的Ruby，它是树遍历解释器。在Ruby 1.9时，Ruby的规范实现从最初的MRI（“Matz&rsquo;s Ruby Interpreter”）切换到了Koichi Sasada的YARV（“Yet Another Ruby VM”）。YARV是一个字节码虚拟机。</p>
 </aside>
-<h3><a href="#transpilers" id="transpilers"><small>2&#8202;.&#8202;2&#8202;.&#8202;3</small>Transpilers</a></h3>
+<h3><a href="#转译器" id="转译器"><small>2&#8202;.&#8202;2&#8202;.&#8202;3</small>转译器</a></h3>
 <p><span name="gary">Writing</span> a complete back end for a language can be a lot
 of work. If you have some existing generic IR to target, you could bolt your
 front end onto that. Otherwise, it seems like you&rsquo;re stuck. But what if you
