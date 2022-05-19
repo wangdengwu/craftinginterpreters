@@ -268,83 +268,46 @@ Pascal和C语言就是围绕这个限制而设计的。在当时，内存非常�
 
 ### 转译器
 
-<span name="gary">Writing</span> a complete back end for a language can be a lot
-of work. If you have some existing generic IR to target, you could bolt your
-front end onto that. Otherwise, it seems like you're stuck. But what if you
-treated some other *source language* as if it were an intermediate
-representation?
+为一种语言<span name="gary">编写</span>一个完整的后端可能需要大量的工作。如果你有一些现有的通用IR作为目标，则可以将前端转换到该IR上。否则，你可能会陷入困境。但是，如果你将某些其他*源语言*视为中间表示，会怎么样？
 
-You write a front end for your language. Then, in the back end, instead of doing
-all the work to *lower* the semantics to some primitive target language, you
-produce a string of valid source code for some other language that's about as
-high level as yours. Then, you use the existing compilation tools for *that*
-language as your escape route off the mountain and down to something you can
-execute.
+你为你的编程语言编写了一个前端，然后，在后端，为了避免将语义编译为低级目标语言而做大量工作，你可以转换成其它语言合法的源代码，这样，你就可以使用*那个*语言现有的编译工具，编译出可执行文件，从而不需要从头到尾实现全部编译过程。
 
-They used to call this a **source-to-source compiler** or a **transcompiler**.
-After the rise of languages that compile to JavaScript in order to run in the
-browser, they've affected the hipster sobriquet **transpiler**.
+人们过去称之为**源到源编译器**或者**转换编译器**随着那些为了在浏览器中运行而编译成JavaScript的各类语言的兴起，它们有了一个时髦的名字**转译器**。
 
 <aside name="gary">
 
-The first transcompiler, XLT86, translated 8080 assembly into 8086 assembly.
-That might seem straightforward, but keep in mind the 8080 was an 8-bit chip and
-the 8086 a 16-bit chip that could use each register as a pair of 8-bit ones.
-XLT86 did data flow analysis to track register usage in the source program and
-then efficiently map it to the register set of the 8086.
+第一个转译器XLT86将8080汇编语言转换为8086汇编语言。
+这看似简单，但请记住8080是8位芯片，而8086是16位芯片，可以将每个寄存器用作一对8位寄存器。
+XLT86进行了数据流分析，以跟踪源程序中的寄存器使用情况，然后将其有效地映射到8086的寄存器集。
 
-It was written by Gary Kildall, a tragic hero of computer science if there
-ever was one. One of the first people to recognize the promise of
-microcomputers, he created PL/M and CP/M, the first high-level language and OS
-for them.
+它是由悲惨的计算机科学英雄加里·基尔达尔（Gary Kildall）撰写的。他是最早认识到微型计算机前景的人之一，他创建了PL/M和CP/M，这是当时最早的高级语言和操作系统。
 
-He was a sea captain, business owner, licensed pilot, and motorcyclist. A TV
-host with the Kris Kristofferson-esque look sported by dashing bearded dudes in
-the '80s. He took on Bill Gates and, like many, lost, before meeting his end in
-a biker bar under mysterious circumstances. He died too young, but sure as hell
-lived before he did.
+他是一名船长、企业主、有执照的飞行员和摩托车手。还是一名电视节目主持人，拥有着克里斯克里斯托弗森式的外表，和潇洒的大胡子，在80年代拉风无比。他直到死于神秘的摩托车酒吧之前，都在与比尔·盖茨较量，并像许多人一样输了。他死得太早了，但死之前也过着地狱般的生活。
 
 </aside>
 
-While the first transcompiler translated one assembly language to another,
-today, most transpilers work on higher-level languages. After the viral spread
-of UNIX to machines various and sundry, there began a long tradition of
-compilers that produced C as their output language. C compilers were available
-everywhere UNIX was and produced efficient code, so targeting C was a good way
-to get your language running on a lot of architectures.
+虽然第一个转译器是将一种汇编语言翻译成另一种汇编语言，
+今天，大多数转译器都专注在高级语言，随着UNIX的普及，开始了一个悠久的转译器传统，即转译器以C语言作为输出语言。C编译器在任何UNIX操作系统上都有，所以把C语言作为输出，可以让你的语言运行在各种各样的体系结构上。
 
-Web browsers are the "machines" of today, and their "machine code" is
-JavaScript, so these days it seems [almost every language out there][js] has a
-compiler that targets JS since that's the <span name="js">main</span> way to get
-your code running in a browser.
+现在，Web浏览器就像“机器”一样，其"机器语言"就是JavaScript,所以现在似乎[几乎所有的语言][js]都有一个以JS为目标的转译器，因为这是让你的代码在浏览器中运行的<span name="js">主要</span>方式。
 
 [js]: https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js
 
 <aside name="js">
 
-JS used to be the *only* way to execute code in a browser. Thanks to
-[WebAssembly][], compilers now have a second, lower-level language they can
-target that runs on the web.
+JS曾经是在浏览器中执行代码的唯一方式。多亏了[WebAssembly][]，编译器现在有了第二种可以在Web上运行的低级语言。
 
 [webassembly]: https://github.com/webassembly/
 
 </aside>
 
-The front end -- scanner and parser -- of a transpiler looks like other
-compilers. Then, if the source language is only a simple syntactic skin over the
-target language, it may skip analysis entirely and go straight to outputting the
-analogous syntax in the destination language.
+转译器的前端（扫描器和语法分析器）看起来跟其他编译器相似。然后，如果源语言只是在目标语言之上包装的简单语法外壳，则它可能会完全跳过分析，并直接输出目标语言中的类似语法。
 
-If the two languages are more semantically different, you'll see more of the
-typical phases of a full compiler including analysis and possibly even
-optimization. Then, when it comes to code generation, instead of outputting some
-binary language like machine code, you produce a string of grammatically correct
-source (well, destination) code in the target language.
+如果两种语言的语义差异较大，那么你就会看到完整编译器的更多典型阶段，包括分析甚至优化。然后，在代码生成阶段，无需输出一些像机器代码一样的二进制语言，而是生成一串语法正确的目标语言源码（好吧，目标代码）。
 
-Either way, you then run that resulting code through the output language's
-existing compilation pipeline, and you're good to go.
+不管是哪种方式，通过目标语言的编译器编译，你可以运行最终代码，看起来还不错。
 
-### Just-in-time compilation
+### 即时编译
 
 This last one is less a shortcut and more a dangerous alpine scramble best
 reserved for experts. The fastest way to execute code is by compiling it to
