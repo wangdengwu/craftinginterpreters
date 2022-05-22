@@ -309,42 +309,26 @@ JS曾经是在浏览器中执行代码的唯一方式。多亏了[WebAssembly][]
 
 ### 即时编译
 
-This last one is less a shortcut and more a dangerous alpine scramble best
-reserved for experts. The fastest way to execute code is by compiling it to
-machine code, but you might not know what architecture your end user's machine
-supports. What to do?
+最后一条与其说是捷径，不如说是最危险的高山争夺战，最好留给专家。执行代码最快的方法是将代码编译成机器代码，但你可能不知道你的最终用户的机器支持什么架构。该怎么做呢？
 
-You can do the same thing that the HotSpot Java Virtual Machine (JVM),
-Microsoft's Common Language Runtime (CLR), and most JavaScript interpreters do.
-On the end user's machine, when the program is loaded -- either from source in
-the case of JS, or platform-independent bytecode for the JVM and CLR -- you
-compile it to native code for the architecture their computer supports.
-Naturally enough, this is called **just-in-time compilation**. Most hackers just
-say "JIT", pronounced like it rhymes with "fit".
+你可以做和HotSpot JVM、Microsoft的CLR和大多数JavaScript解释器相同的事情。
+在终端用户的机器上，当程序加载时（无论是从JS中还是从源代码加载，或者是JVM和CLR的平台无关的字节码），都可以将其编译为对应的本机的机器代码，以适应本机支持的体系结构。
+自然地，这被称为**即时编译**。大多数黑客称之为"JIT"，其发音与“fit”押韵。
 
-The most sophisticated JITs insert profiling hooks into the generated code to
-see which regions are most performance critical and what kind of data is flowing
-through them. Then, over time, they will automatically recompile those <span
-name="hot">hot spots</span> with more advanced optimizations.
+大多数尖端JIT插入分析工具到生成的代码里，来发现哪些地方是最可能的性能关键，以及什么样的数据流过它们。然后，随着时间的推移，<span
+name="hot">热点</span>它们会使用更高级的优化来自动重新编译这部分热点。
 
 <aside name="hot">
 
-This is, of course, exactly where the HotSpot JVM gets its name.
+当然，这正是HotSpot JVM名称的来源。
 
 </aside>
 
 ## 编译器和解释器
 
-Now that I've stuffed your head with a dictionary's worth of programming
-language jargon, we can finally address a question that's plagued coders since
-time immemorial: What's the difference between a compiler and an interpreter?
+现在我已经向你的脑袋里塞满了一大堆编程语言术语，我们终于可以解决一个自远古以来一直困扰着程序员的问题：编译器和解释器之间有什么区别？
 
-It turns out this is like asking the difference between a fruit and a vegetable.
-That seems like a binary either-or choice, but actually "fruit" is a *botanical*
-term and "vegetable" is *culinary*. One does not strictly imply the negation of
-the other. There are fruits that aren't vegetables (apples) and vegetables that
-aren't fruits (carrots), but also edible plants that are both fruits *and*
-vegetables, like tomatoes.
+事实上这就像问水果和蔬菜的区别一样。这似乎是一个二选一的选择，但实际上“水果”是一个植物学术语，“蔬菜”是烹饪学术语。一个并不意味着对另一个的否定。有不是蔬菜的水果（苹果），也有不是水果的蔬菜（胡萝卜），也有既是水果又是蔬菜的可食用植物，比如西红柿。
 
 <span name="veg"></span>
 
@@ -352,61 +336,34 @@ vegetables, like tomatoes.
 
 <aside name="veg">
 
-Peanuts (which are not even nuts) and cereals like wheat are actually fruit, but
-I got this drawing wrong. What can I say, I'm a software engineer, not a
-botanist. I should probably erase the little peanut guy, but he's so cute that I
-can't bear to.
+花生（连真正的坚果都算不上）和小麦等谷类其实都是水果，但我把这个图画错了。怎么说呢，我是个软件工程师，不是植物学家。我也许应该抹掉这个花生小家伙，但他太可爱了，我不忍心。
 
-Now *pine nuts*, on the other hand, are plant-based foods that are neither
-fruits nor vegetables. At least as far as I can tell.
+另一方面，现在*松子*是植物性食物，既不是水果也不是蔬菜。至少据我所知是这样。
 
 </aside>
 
-So, back to languages:
+好，回到编程语言上：
 
-* **Compiling** is an *implementation technique* that involves translating a
-  source language to some other -- usually lower-level -- form. When you
-  generate bytecode or machine code, you are compiling. When you transpile to
-  another high-level language, you are compiling too.
+* **编译**是一种*实现技术* -- 将源语言翻译成其他语言 -- 通常是较低级的形式。当你生成字节码或机器代码时，你就是在编译。当你翻译成另一种高级语言时，你也是编译。
 
-* When we say a language implementation "is a **compiler**", we mean it
-  translates source code to some other form but doesn't execute it. The user has
-  to take the resulting output and run it themselves.
+* 当我们说语言实现"是**编译器**"时，是指它会将源代码转换为其他形式，但不会执行。用户需要自己运行它以获得输出结果。
 
-* Conversely, when we say an implementation "is an **interpreter**", we mean it
-  takes in source code and executes it immediately. It runs programs "from
-  source".
+* 相反，当我们说一个实现"是**解释器**"是，是指它接受源代码并立即执行它。输入源码即可执行。
 
-Like apples and oranges, some implementations are clearly compilers and *not*
-interpreters. GCC and Clang take your C code and compile it to machine code. An
-end user runs that executable directly and may never even know which tool was
-used to compile it. So those are *compilers* for C.
+像苹果和橘子一样，某些实现显然是编译器，而*不是*解释器。 GCC和Clang把你的C代码编译为机器代码。最终用户直接运行该可执行文件，甚至可能永远都不知道使用了哪个工具来编译它。所以这些是C语言*编译器*。
 
-In older versions of Matz's canonical implementation of Ruby, the user ran Ruby
-from source. The implementation parsed it and executed it directly by traversing
-the syntax tree. No other translation occurred, either internally or in any
-user-visible form. So this was definitely an *interpreter* for Ruby.
+在Matz的旧版本的Ruby规范实现中，用户从源代码中运行Ruby。该实现通过遍历语法树对其进行语法分析并直接执行。期间都没有发生其他的转换，无论是在实现内部还是以任何用户可见的形式。所以这绝对是一个Ruby解释器。
 
-But what of CPython? When you run your Python program using it, the code is
-parsed and converted to an internal bytecode format, which is then executed
-inside the VM. From the user's perspective, this is clearly an interpreter --
-they run their program from source. But if you look under CPython's scaly skin,
-you'll see that there is definitely some compiling going on.
+但是CPython呢？当你使用它运行你的Python程序时，代码会被语法分析并转换为内部字节码格式，然后在虚拟机内部执行。从用户的角度来看，这显然是一个解释器 --
+他们是从源代码开始运行自己的程序。但如果你看一下CPython的内部实现，你会发现肯定有一些编译工作在进行。
 
-The answer is that it is <span name="go">both</span>. CPython *is* an
-interpreter, and it *has* a compiler. In practice, most scripting languages work
-this way, as you can see:
+答案是两者<span name="go">兼而有之</span>。CPython *是一个解释器，但它也*有*编译器。实际上，大多数脚本语言都以这种方式工作，如你所见：
 
 <aside name="go">
 
-The [Go tool][go] is even more of a horticultural curiosity. If you run `go
-build`, it compiles your Go source code to machine code and stops. If you type
-`go run`, it does that, then immediately executes the generated executable.
+[Go工具链][go]甚至更进一步，如果你运行`go build`，它编译你的Go源码到机器码，如果你执行`go run`，它也会编译，并立即执行生成的可执行程序。
 
-So `go` *is* a compiler (you can use it as a tool to compile code without
-running it), *is* an interpreter (you can invoke it to immediately run a program
-from source), and also *has* a compiler (when you use it as an interpreter, it
-is still compiling internally).
+所以`go`*是*编译器(你可以使用它编译代码，而不运行代码)，也*是*解释器(你可以运行它立即执行源代码)，内部*也*有编译器(当你把它当做解释器时,它仍然在内部编译)。
 
 [go tool]: https://golang.org/cmd/go/
 
@@ -414,27 +371,19 @@ is still compiling internally).
 
 <img src="image/a-map-of-the-territory/venn.png" alt="A Venn diagram of compilers and interpreters" />
 
-That overlapping region in the center is where our second interpreter lives too,
-since it internally compiles to bytecode. So while this book is nominally about
-interpreters, we'll cover some compilation too.
+中间那个重叠的区域也是我们第二个解释器所在的位置，因为它会在内部将编程语言编译成字节码。所以，虽然本书名义上是关于解释器的，但我们也会涉及一些编译的内容。
 
 ## 我们的旅程
 
-That's a lot to take in all at once. Don't worry. This isn't the chapter where
-you're expected to *understand* all of these pieces and parts. I just want you
-to know that they are out there and roughly how they fit together.
+一下子有太多东西要消化掉。别担心。这一章并不是要求你*理解*所有这些零碎的内容。我只是想让你们知道它们是存在的，以及大致了解它们是如何组合在一起的。
 
-This map should serve you well as you explore the territory beyond the guided
-path we take in this book. I want to leave you yearning to strike out on your
-own and wander all over that mountain.
+当您探索本书所采用的指导路径之外的领域时，这张地图应该会为您提供很好的服务。我想要让你渴望独自出击，在那座山上流浪。
 
-But, for now, it's time for our own journey to begin. Tighten your bootlaces,
-cinch up your pack, and come along. From <span name="here">here</span> on out,
-all you need to focus on is the path in front of you.
+但是，现在，是我们自己的旅程开始的时候了。系好你的鞋带，背好你的包，走吧。从<span name="here">这里</span>开始，所有你需要关注的是你眼前的路。
 
 <aside name="here">
 
-Henceforth, I promise to tone down the whole mountain metaphor thing.
+从现在开始，我保证尽量少用爬山来做比喻。
 
 </aside>
 
@@ -442,16 +391,10 @@ Henceforth, I promise to tone down the whole mountain metaphor thing.
 
 ## 挑战
 
-1. Pick an open source implementation of a language you like. Download the
-   source code and poke around in it. Try to find the code that implements the
-   scanner and parser. Are they handwritten, or generated using tools like
-   Lex and Yacc? (`.l` or `.y` files usually imply the latter.)
+1. 选择一个你喜欢的编程语言的开源实现。下载源代码，并在其中探索。试着找到实现扫描器和语法分析器的代码，它们是手写的，还是用Lex和Yacc等工具生成的？(存在`.l`或`.y`文件通常意味着后者)
 
-1. Just-in-time compilation tends to be the fastest way to implement dynamically
-   typed languages, but not all of them use it. What reasons are there to *not*
-   JIT?
+2. 及时编译往往是提升动态类型编程语言性能最好的方法，但并不是所有的语言都使用它。有什么理由不采用JIT呢？
 
-1. Most Lisp implementations that compile to C also contain an interpreter that
-   lets them execute Lisp code on the fly as well. Why?
+3. 大多数可编译为C的Lisp实现也包含一个解释器，该解释器还使它们能够随时执行Lisp代码。为什么？
 
 </div>
