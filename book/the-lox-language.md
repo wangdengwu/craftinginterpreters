@@ -1,13 +1,10 @@
-> What nicer thing can you do for somebody than make them breakfast?
->
-> <cite>Anthony Bourdain</cite>
+> 有什么比为别人做早餐更美好的事情吗？
+> 
+> <cite>安东尼·伯尔顿</cite>
 
-We'll spend the rest of this book illuminating every dark and sundry corner of
-the Lox language, but it seems cruel to have you immediately start grinding out
-code for the interpreter without at least a glimpse of what we're going to end
-up with.
+我们将会详细介绍一下Lox语言，如果一开始就让你陷入解释器代码细节，而不对最终做出来的语言做个介绍的话，似乎有点残忍。
 
-At the same time, I don't want to drag you through reams of language lawyering
+与此同时， I don't want to drag you through reams of language lawyering
 and specification-ese before you get to touch your text <span
 name="home">editor</span>. So this will be a gentle, friendly introduction to
 Lox. It will leave out a lot of details and edge cases. We've got plenty of time
